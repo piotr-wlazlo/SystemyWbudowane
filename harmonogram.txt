@@ -1,0 +1,25 @@
+GRUPA D03
+
+Hubert Pacyna 251603 - LIDER
+Klaudia Łuczak 251575
+Julia Rzeźniczak 251624
+Piotr Wlazło 251662
+
+ODTWARZACZ MP3 - LPC1769
+checkpoint:
+1. odczyt z karty SD, katalogu karty i wyświetlenie na OLED
+------------------------------------------------------------------
+docelowo
+1+2+3. odtwarzanie wav dac, timer, przerwania
+4+5. regulacja głośności poprzez wzmacniacz + adc potencjometr
+6+7. karta sd. i/f karty SPI
+8. przewijanie utworów joystick
+9. wyświetlanie informacji o tytule, albumie, czasie trwania, itd.
+10+11. czujnik światła i/f i2c - zmiana koloru interfejsu
+12. linijka diod pca9532, która pokazuje poziom głośności + i2c
+13. RealTimeClock - informacja o bieżącej dacie i godzinie
+
+
+
+OPCJONALNIE
+1. akcelerometr do przewijania utworów w zależności od pochylenia płytki

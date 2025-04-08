@@ -98,56 +98,6 @@ void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
 
 static uint32_t msTicks = 0;
 
-static void intToString(int value, uint8_t* pBuf, uint32_t len, uint32_t base)
-{
-    static const char* pAscii = "0123456789abcdefghijklmnopqrstuvwxyz";
-    int pos = 0;
-    int tmpValue = value;
-
-    // the buffer must not be null and at least have a length of 2 to handle one
-    // digit and null-terminator
-    if (pBuf == NULL || len < 2) {
-        return;
-    }
-
-    // a valid base cannot be less than 2 or larger than 36
-    // a base value of 2 means binary representation. A value of 1 would mean only zeros
-    // a base larger than 36 can only be used if a larger alphabet were used.
-    if (base < 2 || base > 36) {
-        return;
-    }
-
-    // negative value
-    if (value < 0) {
-        tmpValue = -tmpValue;
-        value    = -value;
-        pBuf[pos++] = '-';
-    }
-
-    // calculate the required length of the buffer
-    do {
-        pos++;
-        tmpValue /= base;
-    } while(tmpValue > 0);
-
-
-    if (pos > len)
-    {
-        // the len parameter is invalid.
-        return;
-    }
-
-    pBuf[pos] = '\0';
-
-    do {
-        pBuf[--pos] = pAscii[value % base];
-        value /= base;
-    } while(value > 0);
-
-    return;
-
-}
-
 
 static uint32_t getTicks(void)
 {
@@ -307,7 +257,7 @@ int main (void) {
 				continue;
 			}
 			if ((res != FR_OK) || !Finfo.fname[0]) break;
-			oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+			oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
     	};
 
     acc_read(&x, &y, &z);
@@ -322,14 +272,4 @@ int main (void) {
 //    oled_putString(1,1,  (uint8_t*)"test ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 
     while(1);
-
-}
-
-void check_failed(uint8_t *file, uint32_t line)
-{
-	/* User can add his own implementation to report the file name and line number,
-	 ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-
-	/* Infinite loop */
-	while(1);
 }

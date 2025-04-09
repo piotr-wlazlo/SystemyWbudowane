@@ -6,7 +6,7 @@
  * Generated linker script file for LPC1343
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v24.12 [Build 148] [2025-01-10] on 8 Apr 2025, 13:32:11
+ * MCUXpresso IDE v24.12 [Build 148] [2025-01-10] on 9 Apr 2025, 15:28:09
  */
 
 INCLUDE "mp3_Debug_library.ld"

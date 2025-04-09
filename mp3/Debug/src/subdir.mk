@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/main.c 
+../src/cr_startup_lpc17.c \
+../src/dupcia.c 
 
 C_DEPS += \
-./src/main.d 
+./src/cr_startup_lpc17.d \
+./src/dupcia.d 
 
 OBJS += \
-./src/main.o 
+./src/cr_startup_lpc17.o \
+./src/dupcia.o 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -25,7 +28,7 @@ src/%.o: ../src/%.c src/subdir.mk
 clean: clean-src
 
 clean-src:
-	-$(RM) ./src/main.d ./src/main.o
+	-$(RM) ./src/cr_startup_lpc17.d ./src/cr_startup_lpc17.o ./src/dupcia.d ./src/dupcia.o
 
 .PHONY: clean-src
 

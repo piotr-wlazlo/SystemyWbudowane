@@ -23,6 +23,9 @@
 #include "oled.h"			/* obsluga OLEDu */
 #include "acc.h"
 
+#include "light.h"			/* biblioteka od czujnika swiatla */
+
+
 #define UART_DEV LPC_UART3		/* def UART3 jako domyślne urządzenie do komunikacji szeregowej */
 
 static FILINFO Finfo;		/* przechowanie inf o plikach */
@@ -121,15 +124,11 @@ void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
 static uint32_t msTicks = 0;
 
 
-static uint32_t getTicks(void)
-{
+static uint32_t getTicks(void) {
     return msTicks;
 }
 
-
-
-static void init_i2c(void)
-{
+static void init_i2c(void) {
 	PINSEL_CFG_Type PinCfg;
 
 	/* Initialize I2C2 pin connect */
@@ -147,8 +146,7 @@ static void init_i2c(void)
 	I2C_Cmd(LPC_I2C2, ENABLE);
 }
 
-static void init_adc(void)
-{
+static void init_adc(void) {
 	PINSEL_CFG_Type PinCfg;
 
 	/*
@@ -172,7 +170,6 @@ static void init_adc(void)
 
 }
 
-
 int main (void) {
 
     DSTATUS stat;		/* zmienne do obsługi systemu plików FAT */
@@ -195,18 +192,30 @@ int main (void) {
     uint32_t lux = 0;
     uint32_t trim = 0;
 
-    RTC_TIME_Type currentTime;
-    uint8_t timeStr[20];
-
-    init_ssp();		/* inicjalizacja SPI i UART */
     init_uart();
-
     init_i2c();
+    init_ssp();		/* inicjalizacja SPI i UART */
     init_adc();
+
+    init_rtc();
 
     oled_init();
     light_init();
     acc_init();
+
+    light_init();	/* inicjalizacja czujnika swiatla */
+
+      /* powielenie inicjalizacji - zakomentowalem, bo moze byc wazna kolejnosc i nie wiem ktore usunac */
+//    init_ssp();		/* inicjalizacja SPI i UART */
+//    init_uart();
+//
+//    init_i2c();
+//    init_adc();
+//
+//
+//    oled_init();
+//    light_init();
+//    acc_init();
 
 
     UART_SendString(UART_DEV, (uint8_t*)"MMC/SD example\r\n");		/* wysyła kominikat przez UART */
@@ -266,42 +275,67 @@ int main (void) {
     /* otwiera katalog główny karty SD */
     res = f_opendir(&dir, "/");
     if (res) {
-    	oled_putString(1,1,  (uint8_t*)"test ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
         i = sprintf((char*)buf, "Failed to open /: %d \r\n", res);
         UART_Send(UART_DEV, buf, i, BLOCKING);
         return 1;
     }
 
+    RTC_TIME_Type currentTime;
+    uint8_t timeStr[20];
+
     oled_clearScreen(OLED_COLOR_BLACK);
 
     /* odczytuje i wypisuje nazwy plików z katalogu głównego */
     for(int i = 1; i < 10; i++) {
-			res = f_readdir(&dir, &Finfo);
-			if (Finfo.fname[0] == '_' || (Finfo.fattrib & AM_DIR)) {
-				i--;
-				continue;
-			}
-			if ((res != FR_OK) || !Finfo.fname[0]) break;
-			oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-    	};
+		res = f_readdir(&dir, &Finfo);
+		if (Finfo.fname[0] == '_' || (Finfo.fattrib & AM_DIR)) {
+			i--;
+			continue;
+		}
+		if ((res != FR_OK) || !Finfo.fname[0]) break;
+		oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	};
 
     acc_read(&x, &y, &z);
     xoff = 0-x;
     yoff = 0-y;
     zoff = 64-z;
 
-    light_enable();
+    light_enable();						/* aktywowanie czujnika swiatla */
+    light_setRange(LIGHT_RANGE_4000);	/* ustawienie zakresu swiatla do 4000 luksow */
 
-//    oled_clearScreen(OLED_COLOR_BLACK);
-//    oled_putString(1,1,  (uint8_t*)"test ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	RTC_GetFullTime(LPC_RTC, &currentTime);
+
+//	sprintf((char*)timeStr, "%02d-%02d-%04d %02d:%02d", currentTime.DOM, currentTime.MONTH, currentTime.YEAR, currentTime.HOUR, currentTime.MIN);
+//	sprintf((char*)timeStr, "%02d:%02d:%02d", currentTime.HOUR, currentTime.MIN, currentTime.SEC);
+
+
+	/* scrollowanie po ekranie w teorii po bozemu - pewnie nie zadziala */
+	//	oled_putString(1, 48, (uint8_t*)"test ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+
+	oled_putString(0, 49, timeStr, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	__disable_irq();
+	oled_horizontalLeftScroll(0x00, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
+	__enable_irq();
 
     while(1) {
-    	RTC_GetFullTime(LPC_RTC, &currentTime);
-
+		RTC_GetFullTime(LPC_RTC, &currentTime);
 		sprintf((char*)timeStr, "%02d:%02d:%02d", currentTime.HOUR, currentTime.MIN, currentTime.SEC);
+		oled_putString(0, 49, timeStr, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+//    	oled_horizontalLeftScroll(0x00, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
 
-		oled_putString(45, 49, timeStr, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+
+//		lux = light_read(); /* pomiar swiatla */
+//
+//		uint8_t bgColor = OLED_COLOR_BLACK;
+//		uint8_t txtColor = OLED_COLOR_WHITE;
+//
+//		if (lux > 100) {
+//			bgColor = OLED_COLOR_WHITE;
+//			txtColor = OLED_COLOR_BLACK;
+//		}
 
 		Timer0_Wait(1000);
     };
+
 }

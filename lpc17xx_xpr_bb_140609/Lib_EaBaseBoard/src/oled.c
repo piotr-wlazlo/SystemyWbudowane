@@ -250,7 +250,7 @@ runInitSequence(void)
     writeCommand(0x80);//(display on)
     writeCommand(0xa1);//(set segment re-map)
     writeCommand(0xa6);//(set normal/inverse display)
-    //  writeCommand(0xa7);//(set inverse display)
+//    writeCommand(0xa7);//(set inverse display)
     writeCommand(0xa8);//(set multiplex ratio)
     writeCommand(0x3F);
     writeCommand(0xd3);//(set display offset)
@@ -401,10 +401,10 @@ void oled_putPixel(uint8_t x, uint8_t y, oled_color_t color) {
     uint8_t mask;
     uint32_t shadowPos = 0;
 
-    if (x > OLED_DISPLAY_WIDTH) {
+    if (x >= OLED_DISPLAY_WIDTH) {
         return;
     }
-    if (y > OLED_DISPLAY_HEIGHT) {
+    if (y >= OLED_DISPLAY_HEIGHT) {
         return;
     }
 
@@ -842,17 +842,26 @@ void oled_putString(uint8_t x, uint8_t y, uint8_t *pStr, oled_color_t fb,
 void oled_horizontalLeftScroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x2e);
 
-	writeCommand(0x29); //w teorii kierunke scrolla
-	writeCommand(0x00);
-
-	writeCommand(0x00); //startpage
-
-	writeCommand(0x00);
-
-	writeCommand(0x07); //endpage
-
+	writeCommand(0x27); //w teorii kierunke scrolla
 	writeCommand(0x01);
+
+	writeCommand(startPage); //startpage
+
+	writeCommand(0x00);
+
+	writeCommand(endPage); //endpage
+
+	writeCommand(0x00);
 	writeCommand(0xff);
 
 	writeCommand(0x2f);
 };
+
+void oled_setInvertDisplay() {
+	writeCommand(0xa7);
+}
+
+void oled_setNormalDisplay() {
+	writeCommand(0xa6);
+}
+

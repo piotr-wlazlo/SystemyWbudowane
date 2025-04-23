@@ -14,7 +14,7 @@ docelowo
 ❌4+5. regulacja głośności poprzez wzmacniacz + adc potencjometr
 ✅6+7. karta sd. i/f karty SPI
 ❌8. przewijanie utworów joystick, czasie trwania, itd.
-✅/❌10+11. czujnik światła i/f i2c - zmiana koloru interfejsu
+✅10+11. czujnik światła i/f i2c - zmiana koloru interfejsu
 ❌12. linijka diod pca9532, która pokazuje poziom głośności + i2c
 ✅/❌13. RealTimeClock - informacja o bieżącej dacie i godzinie
 

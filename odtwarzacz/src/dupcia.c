@@ -13,24 +13,75 @@
 #include "lpc17xx_ssp.h"		/* obsługa interfejsu SPI (dla karty SD)*/
 #include "lpc17xx_uart.h"		/* obsługa UART (komunikacja szeregowa) */
 #include "lpc17xx_timer.h"		/* obsługa timera */
-#include "stdio.h"		/* standardowa biblio wejścia wyjścia */
+#include "stdio.h"				/* standardowa biblio wejścia wyjścia */
 #include "lpc17xx_adc.h"
+#include "lpc17xx_dac.h"
 #include "lpc17xx_rtc.h"
+#include "lpc17xx_clkpwr.h"
 
-#include "diskio.h"			/* obsługa systemu plików FAT i nośnika SD */
+
+#include "diskio.h"				/* obsługa systemu plików FAT i nośnika SD */
 #include "ff.h"
 
-#include "oled.h"			/* obsluga OLEDu */
+#include "oled.h"				/* obsluga OLEDu */
 #include "acc.h"
 
-#include "light.h"			/* biblioteka od czujnika swiatla */
-
+#include "light.h"				/* biblioteka od czujnika swiatla */
 
 #define UART_DEV LPC_UART3		/* def UART3 jako domyślne urządzenie do komunikacji szeregowej */
 
-static FILINFO Finfo;		/* przechowanie inf o plikach */
-static FATFS Fatfs[1];		/* reprezentacja systemu plików FAT */
-static uint8_t buf[64];		/* bufor do danych wysyłanych przez UART */
+static FILINFO Finfo;			/* przechowanie inf o plikach */
+static FATFS Fatfs[1];			/* reprezentacja systemu plików FAT */
+static uint8_t buf[64];			/* bufor do danych wysyłanych przez UART */
+
+uint8_t bufor1[512];
+uint8_t bufor2[512];
+
+void
+TIMER1_IRQHandler (void)
+{
+  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR0_INT))
+    {
+
+      TIM_ClearIntPending (LPC_TIM1, TIM_MR0_INT);
+    }
+  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR1_INT))
+    {
+
+      TIM_ClearIntPending (LPC_TIM1, TIM_MR1_INT);
+    }
+}
+
+static void
+init_Timer (void)
+{
+  TIM_TIMERCFG_Type Config;
+  TIM_MATCHCFG_Type Match_Cfg;
+
+  Config.PrescaleOption = TIM_PRESCALE_USVAL;
+  Config.PrescaleValue = 1000; // czyli 1 milisekunda
+
+  //najpierw włączyć zasilanie
+  CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_TIMER1, CLKPWR_PCLKSEL_CCLK_DIV_1);
+  // Ustawić timer.
+  TIM_Cmd (LPC_TIM1, DISABLE); // to w zasadzie jest niepotrzebne, ponieważ po włączeniu zasilania timer jest nieczynny,
+  TIM_Init (LPC_TIM1, TIM_TIMER_MODE, &Config);
+
+  Match_Cfg.ExtMatchOutputType = TIM_EXTMATCH_NOTHING;
+  Match_Cfg.IntOnMatch = TRUE;
+  Match_Cfg.ResetOnMatch = FALSE;
+  Match_Cfg.StopOnMatch = FALSE;
+  Match_Cfg.MatchChannel = 0;
+  Match_Cfg.MatchValue = 200; // Czyli 200 ms.
+  TIM_ConfigMatch (LPC_TIM1, &Match_Cfg);
+  Match_Cfg.ResetOnMatch = TRUE;
+  Match_Cfg.MatchChannel = 1;
+  Match_Cfg.MatchValue = 2000; // czyli 2 s.
+  TIM_ConfigMatch (LPC_TIM1, &Match_Cfg);
+  TIM_Cmd (LPC_TIM1, ENABLE);
+  // I odblokować przerwania w VIC
+  NVIC_EnableIRQ (TIMER1_IRQn);
+}
 
 static void init_rtc(void)
 {
@@ -119,8 +170,6 @@ void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
 }
 
 
-// inicjalizacja oled_periph
-
 static uint32_t msTicks = 0;
 
 
@@ -171,7 +220,6 @@ static void init_adc(void) {
 }
 
 int main (void) {
-
     DSTATUS stat;		/* zmienne do obsługi systemu plików FAT */
     DWORD p2;
     WORD w1;
@@ -204,19 +252,6 @@ int main (void) {
     acc_init();
 
     light_init();	/* inicjalizacja czujnika swiatla */
-
-      /* powielenie inicjalizacji - zakomentowalem, bo moze byc wazna kolejnosc i nie wiem ktore usunac */
-//    init_ssp();		/* inicjalizacja SPI i UART */
-//    init_uart();
-//
-//    init_i2c();
-//    init_adc();
-//
-//
-//    oled_init();
-//    light_init();
-//    acc_init();
-
 
     UART_SendString(UART_DEV, (uint8_t*)"MMC/SD example\r\n");		/* wysyła kominikat przez UART */
 
@@ -281,9 +316,9 @@ int main (void) {
     }
 
     RTC_TIME_Type currentTime;
-    uint8_t timeStr[20];
+    uint8_t timeStr[40];
 
-    oled_clearScreen(OLED_COLOR_BLACK);
+    oled_clearScreen(OLED_COLOR_WHITE);
 
     /* odczytuje i wypisuje nazwy plików z katalogu głównego */
     for(int i = 1; i < 10; i++) {
@@ -293,7 +328,7 @@ int main (void) {
 			continue;
 		}
 		if ((res != FR_OK) || !Finfo.fname[0]) break;
-		oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+		oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	};
 
     acc_read(&x, &y, &z);
@@ -306,34 +341,21 @@ int main (void) {
 
 	RTC_GetFullTime(LPC_RTC, &currentTime);
 
-//	sprintf((char*)timeStr, "%02d-%02d-%04d %02d:%02d", currentTime.DOM, currentTime.MONTH, currentTime.YEAR, currentTime.HOUR, currentTime.MIN);
-//	sprintf((char*)timeStr, "%02d:%02d:%02d", currentTime.HOUR, currentTime.MIN, currentTime.SEC);
+	sprintf((char*)timeStr, "%02d-%02d-%04d %02d:%02d:%02d", currentTime.DOM, currentTime.MONTH, currentTime.YEAR, currentTime.HOUR, currentTime.MIN, currentTime.SEC);
+	oled_putString(0, 49, timeStr, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+	oled_horizontalLeftScroll(0x06, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
 
-
-	/* scrollowanie po ekranie w teorii po bozemu - pewnie nie zadziala */
-	//	oled_putString(1, 48, (uint8_t*)"test ", OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-
-	oled_putString(0, 49, timeStr, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-	__disable_irq();
-	oled_horizontalLeftScroll(0x00, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
-	__enable_irq();
+	init_Timer();
 
     while(1) {
-		RTC_GetFullTime(LPC_RTC, &currentTime);
-		sprintf((char*)timeStr, "%02d:%02d:%02d", currentTime.HOUR, currentTime.MIN, currentTime.SEC);
-		oled_putString(0, 49, timeStr, OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-//    	oled_horizontalLeftScroll(0x00, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
 
+		lux = light_read(); /* pomiar swiatla */
 
-//		lux = light_read(); /* pomiar swiatla */
-//
-//		uint8_t bgColor = OLED_COLOR_BLACK;
-//		uint8_t txtColor = OLED_COLOR_WHITE;
-//
-//		if (lux > 100) {
-//			bgColor = OLED_COLOR_WHITE;
-//			txtColor = OLED_COLOR_BLACK;
-//		}
+		if (lux < 100) {
+			oled_setInvertDisplay();
+		} else {
+		    oled_setNormalDisplay();
+		}
 
 		Timer0_Wait(1000);
     };

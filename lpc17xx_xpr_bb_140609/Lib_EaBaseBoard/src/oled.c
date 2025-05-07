@@ -864,4 +864,3 @@ void oled_setInvertDisplay() {
 void oled_setNormalDisplay() {
 	writeCommand(0xa6);
 }
-

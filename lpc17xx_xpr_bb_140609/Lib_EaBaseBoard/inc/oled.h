@@ -30,7 +30,7 @@ void oled_putString(uint8_t x, uint8_t y, uint8_t *pStr, oled_color_t fb,
         oled_color_t bg);
 uint8_t oled_putChar(uint8_t x, uint8_t y, uint8_t ch, oled_color_t fb, oled_color_t bg);
 void oled_horizontalLeftScroll(uint8_t startPage, uint8_t endPage);
-void oled_setInvertDisplay();
+void oled_setInvertedDisplay();
 void oled_setNormalDisplay();
 
 

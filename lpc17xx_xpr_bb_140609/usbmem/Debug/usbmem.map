@@ -1,0 +1,980 @@
+Archive member included to satisfy reference by file (symbol)
+
+/Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+                              ./src/cr_startup_lpc17.o (SystemInit)
+/Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+                              ./src/memory.o (NVIC_DeInit)
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+                              /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o) (__aeabi_uldivmod)
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+                              /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o) (__udivmoddi4)
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+                              /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o) (__aeabi_ldiv0)
+
+Discarded input sections
+
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/DiskImg.o
+ .text          0x00000000        0x0 ./src/DiskImg.o
+ .data          0x00000000        0x0 ./src/DiskImg.o
+ .bss           0x00000000        0x0 ./src/DiskImg.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/cr_startup_lpc17.o
+ .text          0x00000000        0x0 ./src/cr_startup_lpc17.o
+ .data          0x00000000        0x0 ./src/cr_startup_lpc17.o
+ .bss           0x00000000        0x0 ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000      0xad8 ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000       0x22 ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000       0x8e ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000       0x51 ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000      0x103 ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000       0x6a ./src/cr_startup_lpc17.o
+ .debug_macro   0x00000000      0x1df ./src/cr_startup_lpc17.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .group         0x00000000        0xc ./src/memory.o
+ .text          0x00000000        0x0 ./src/memory.o
+ .data          0x00000000        0x0 ./src/memory.o
+ .bss           0x00000000        0x0 ./src/memory.o
+ .debug_macro   0x00000000      0xad8 ./src/memory.o
+ .debug_macro   0x00000000       0x22 ./src/memory.o
+ .debug_macro   0x00000000       0x8e ./src/memory.o
+ .debug_macro   0x00000000       0x51 ./src/memory.o
+ .debug_macro   0x00000000      0x103 ./src/memory.o
+ .debug_macro   0x00000000       0x6a ./src/memory.o
+ .debug_macro   0x00000000      0x1df ./src/memory.o
+ .debug_macro   0x00000000       0x2e ./src/memory.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .group         0x00000000        0xc ./src/mscuser.o
+ .text          0x00000000        0x0 ./src/mscuser.o
+ .data          0x00000000        0x0 ./src/mscuser.o
+ .debug_macro   0x00000000      0xad8 ./src/mscuser.o
+ .debug_macro   0x00000000       0x1c ./src/mscuser.o
+ .debug_macro   0x00000000       0x22 ./src/mscuser.o
+ .debug_macro   0x00000000       0x22 ./src/mscuser.o
+ .debug_macro   0x00000000       0x8e ./src/mscuser.o
+ .debug_macro   0x00000000       0x51 ./src/mscuser.o
+ .debug_macro   0x00000000      0x103 ./src/mscuser.o
+ .debug_macro   0x00000000       0x6a ./src/mscuser.o
+ .debug_macro   0x00000000      0x1df ./src/mscuser.o
+ .debug_macro   0x00000000      0x7b7 ./src/mscuser.o
+ .debug_macro   0x00000000      0x2c7 ./src/mscuser.o
+ .debug_macro   0x00000000       0x64 ./src/mscuser.o
+ .debug_macro   0x00000000      0x1ec ./src/mscuser.o
+ .debug_macro   0x00000000       0xcd ./src/mscuser.o
+ .debug_macro   0x00000000       0xac ./src/mscuser.o
+ .debug_macro   0x00000000       0x2e ./src/mscuser.o
+ .debug_macro   0x00000000       0x2e ./src/mscuser.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbcore.o
+ .text          0x00000000        0x0 ./src/usbcore.o
+ .data          0x00000000        0x0 ./src/usbcore.o
+ .debug_macro   0x00000000      0xad8 ./src/usbcore.o
+ .debug_macro   0x00000000       0x22 ./src/usbcore.o
+ .debug_macro   0x00000000       0x8e ./src/usbcore.o
+ .debug_macro   0x00000000       0x51 ./src/usbcore.o
+ .debug_macro   0x00000000      0x103 ./src/usbcore.o
+ .debug_macro   0x00000000       0x6a ./src/usbcore.o
+ .debug_macro   0x00000000      0x1df ./src/usbcore.o
+ .debug_macro   0x00000000       0x5e ./src/usbcore.o
+ .debug_macro   0x00000000      0x1ec ./src/usbcore.o
+ .debug_macro   0x00000000       0xcd ./src/usbcore.o
+ .debug_macro   0x00000000       0xac ./src/usbcore.o
+ .debug_macro   0x00000000       0xf4 ./src/usbcore.o
+ .debug_macro   0x00000000       0x2e ./src/usbcore.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbdesc.o
+ .text          0x00000000        0x0 ./src/usbdesc.o
+ .data          0x00000000        0x0 ./src/usbdesc.o
+ .bss           0x00000000        0x0 ./src/usbdesc.o
+ .rodata        0x00000000       0xa8 ./src/usbdesc.o
+ .debug_info    0x00000000      0x12b ./src/usbdesc.o
+ .debug_abbrev  0x00000000       0x8c ./src/usbdesc.o
+ .debug_aranges
+                0x00000000       0x18 ./src/usbdesc.o
+ .debug_macro   0x00000000       0x96 ./src/usbdesc.o
+ .debug_macro   0x00000000      0xad8 ./src/usbdesc.o
+ .debug_macro   0x00000000       0x22 ./src/usbdesc.o
+ .debug_macro   0x00000000       0x8e ./src/usbdesc.o
+ .debug_macro   0x00000000       0x51 ./src/usbdesc.o
+ .debug_macro   0x00000000      0x103 ./src/usbdesc.o
+ .debug_macro   0x00000000       0x6a ./src/usbdesc.o
+ .debug_macro   0x00000000      0x1df ./src/usbdesc.o
+ .debug_macro   0x00000000       0x5e ./src/usbdesc.o
+ .debug_macro   0x00000000      0x1ec ./src/usbdesc.o
+ .debug_macro   0x00000000       0xf4 ./src/usbdesc.o
+ .debug_macro   0x00000000       0xcd ./src/usbdesc.o
+ .debug_macro   0x00000000       0x28 ./src/usbdesc.o
+ .debug_line    0x00000000      0x359 ./src/usbdesc.o
+ .debug_str     0x00000000     0x4ec0 ./src/usbdesc.o
+ .comment       0x00000000       0x45 ./src/usbdesc.o
+ .ARM.attributes
+                0x00000000       0x2d ./src/usbdesc.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbhw.o
+ .text          0x00000000        0x0 ./src/usbhw.o
+ .data          0x00000000        0x0 ./src/usbhw.o
+ .text.USB_WakeUp
+                0x00000000       0x28 ./src/usbhw.o
+ .text.USB_WakeUpCfg
+                0x00000000       0x12 ./src/usbhw.o
+ .text.USB_Configure
+                0x00000000       0x54 ./src/usbhw.o
+ .text.USB_ConfigEP
+                0x00000000       0x68 ./src/usbhw.o
+ .text.USB_EnableEP
+                0x00000000       0x2c ./src/usbhw.o
+ .text.USB_DisableEP
+                0x00000000       0x30 ./src/usbhw.o
+ .text.USB_ResetEP
+                0x00000000       0x2c ./src/usbhw.o
+ .rodata        0x00000000       0x10 ./src/usbhw.o
+ .text.USB_DMA_Setup
+                0x00000000      0x1b8 ./src/usbhw.o
+ .text.USB_DMA_Enable
+                0x00000000       0x28 ./src/usbhw.o
+ .text.USB_DMA_Disable
+                0x00000000       0x28 ./src/usbhw.o
+ .text.USB_DMA_Status
+                0x00000000       0x8c ./src/usbhw.o
+ .text.USB_DMA_BufAdr
+                0x00000000       0x3c ./src/usbhw.o
+ .text.USB_DMA_BufCnt
+                0x00000000       0x3c ./src/usbhw.o
+ .text.USB_GetFrame
+                0x00000000       0x38 ./src/usbhw.o
+ .debug_macro   0x00000000      0xad8 ./src/usbhw.o
+ .debug_macro   0x00000000       0x1c ./src/usbhw.o
+ .debug_macro   0x00000000       0x22 ./src/usbhw.o
+ .debug_macro   0x00000000       0x22 ./src/usbhw.o
+ .debug_macro   0x00000000       0x8e ./src/usbhw.o
+ .debug_macro   0x00000000       0x51 ./src/usbhw.o
+ .debug_macro   0x00000000      0x103 ./src/usbhw.o
+ .debug_macro   0x00000000       0x6a ./src/usbhw.o
+ .debug_macro   0x00000000      0x1df ./src/usbhw.o
+ .debug_macro   0x00000000      0x7b7 ./src/usbhw.o
+ .debug_macro   0x00000000      0x2c7 ./src/usbhw.o
+ .debug_macro   0x00000000       0x64 ./src/usbhw.o
+ .debug_macro   0x00000000      0x1ec ./src/usbhw.o
+ .debug_macro   0x00000000       0xcd ./src/usbhw.o
+ .debug_macro   0x00000000       0xac ./src/usbhw.o
+ .debug_macro   0x00000000       0x58 ./src/usbhw.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .group         0x00000000        0xc ./src/usbuser.o
+ .text          0x00000000        0x0 ./src/usbuser.o
+ .data          0x00000000        0x0 ./src/usbuser.o
+ .bss           0x00000000        0x0 ./src/usbuser.o
+ .text.USB_EndPoint1
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint3
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint4
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint5
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint6
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint7
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint8
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint9
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint10
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint11
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint12
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint13
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint14
+                0x00000000       0x12 ./src/usbuser.o
+ .text.USB_EndPoint15
+                0x00000000       0x12 ./src/usbuser.o
+ .debug_macro   0x00000000      0xad8 ./src/usbuser.o
+ .debug_macro   0x00000000       0x1c ./src/usbuser.o
+ .debug_macro   0x00000000       0x22 ./src/usbuser.o
+ .debug_macro   0x00000000       0x22 ./src/usbuser.o
+ .debug_macro   0x00000000       0x8e ./src/usbuser.o
+ .debug_macro   0x00000000       0x51 ./src/usbuser.o
+ .debug_macro   0x00000000      0x103 ./src/usbuser.o
+ .debug_macro   0x00000000       0x6a ./src/usbuser.o
+ .debug_macro   0x00000000      0x1df ./src/usbuser.o
+ .debug_macro   0x00000000      0x7b7 ./src/usbuser.o
+ .debug_macro   0x00000000      0x2c7 ./src/usbuser.o
+ .debug_macro   0x00000000       0x64 ./src/usbuser.o
+ .debug_macro   0x00000000      0x1ec ./src/usbuser.o
+ .debug_macro   0x00000000       0xcd ./src/usbuser.o
+ .debug_macro   0x00000000       0xac ./src/usbuser.o
+ .debug_macro   0x00000000       0x58 ./src/usbuser.o
+ .debug_macro   0x00000000       0x2e ./src/usbuser.o
+ .debug_macro   0x00000000       0x2e ./src/usbuser.o
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .text          0x00000000        0x0 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .data          0x00000000        0x4 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .bss           0x00000000        0x0 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .text.SystemCoreClockUpdate
+                0x00000000      0x2ec /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x00000000       0x1c /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x00000000      0x2c7 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .group         0x00000000        0xc /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .text          0x00000000        0x0 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .data          0x00000000        0x0 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .bss           0x00000000        0x0 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000      0xad2 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000       0x1c /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000       0x22 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000       0x10 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000      0x12e /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000      0x5b3 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000      0x7b7 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000      0x2c7 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .debug_macro   0x00000000       0x64 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+ .text          0x00000000       0x30 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .data          0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .bss           0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_line_str
+                0x00000000       0xce /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00000000       0x2c /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .ARM.attributes
+                0x00000000       0x1d /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_aeabi_uldivmod.o)
+ .text          0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .data          0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .bss           0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .text.__udivmoddi4
+                0x00000000      0x2b4 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .ARM.extab.text.__udivmoddi4
+                0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .ARM.exidx.text.__udivmoddi4
+                0x00000000        0x8 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000000       0x34 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .ARM.attributes
+                0x00000000       0x2d /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_udivmoddi4.o)
+ .text          0x00000000        0x4 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+ .data          0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+ .bss           0x00000000        0x0 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+ .debug_line_str
+                0x00000000       0xd2 /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x00000000       0x1d /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a(_dvmd_tls.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MFlash512        0x00000000         0x00080000         xr
+RamLoc32         0x10000000         0x00008000         xrw
+RamAHB32         0x2007c000         0x00008000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./src/DiskImg.o
+LOAD ./src/cr_startup_lpc17.o
+LOAD ./src/memory.o
+LOAD ./src/mscuser.o
+LOAD ./src/usbcore.o
+LOAD ./src/usbdesc.o
+LOAD ./src/usbhw.o
+LOAD ./src/usbuser.o
+LOAD /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a
+LOAD /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a
+START GROUP
+LOAD /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7-m/nofp/libgcc.a
+LOAD /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a
+LOAD /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libm.a
+LOAD /Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libcr_newlib_semihost.a
+END GROUP
+                0x00000000                        __base_MFlash512 = 0x0
+                0x00000000                        __base_Flash = 0x0
+                0x00080000                        __top_MFlash512 = 0x80000
+                0x00080000                        __top_Flash = 0x80000
+                0x10000000                        __base_RamLoc32 = 0x10000000
+                0x10000000                        __base_RAM = 0x10000000
+                0x10008000                        __top_RamLoc32 = 0x10008000
+                0x10008000                        __top_RAM = 0x10008000
+                0x2007c000                        __base_RamAHB32 = 0x2007c000
+                0x2007c000                        __base_RAM2 = 0x2007c000
+                0x20084000                        __top_RamAHB32 = 0x20084000
+                0x20084000                        __top_RAM2 = 0x20084000
+
+.text           0x00000000     0x2bcc
+ FILL mask 0xff
+                0x00000000                        __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x00000000       0xcc ./src/cr_startup_lpc17.o
+                0x00000000                g_pfnVectors
+                0x000000cc                        . = ALIGN (0x4)
+                0x000000cc                        __section_table_start = .
+                0x000000cc                        __data_section_table = .
+                0x000000cc        0x4 LONG 0x2bcc LOADADDR (.data)
+                0x000000d0        0x4 LONG 0x10000000 ADDR (.data)
+                0x000000d4        0x4 LONG 0x0 SIZEOF (.data)
+                0x000000d8        0x4 LONG 0x2bcc LOADADDR (.data_RAM2)
+                0x000000dc        0x4 LONG 0x2007c000 ADDR (.data_RAM2)
+                0x000000e0        0x4 LONG 0x0 SIZEOF (.data_RAM2)
+                0x000000e4                        __data_section_table_end = .
+                0x000000e4                        __bss_section_table = .
+                0x000000e4        0x4 LONG 0x10000220 ADDR (.bss)
+                0x000000e8        0x4 LONG 0x2170 SIZEOF (.bss)
+                0x000000ec        0x4 LONG 0x2007c000 ADDR (.bss_RAM2)
+                0x000000f0        0x4 LONG 0x0 SIZEOF (.bss_RAM2)
+                0x000000f4                        __bss_section_table_end = .
+                0x000000f4                        __section_table_end = .
+ *(.after_vectors*)
+ *(.text*)
+ .text.ResetISR
+                0x000000f4       0x5c ./src/cr_startup_lpc17.o
+                0x000000f4                ResetISR
+ .text.NMI_Handler
+                0x00000150        0x8 ./src/cr_startup_lpc17.o
+                0x00000150                NMI_Handler
+ .text.HardFault_Handler
+                0x00000158        0x8 ./src/cr_startup_lpc17.o
+                0x00000158                HardFault_Handler
+ .text.MemManage_Handler
+                0x00000160        0x8 ./src/cr_startup_lpc17.o
+                0x00000160                MemManage_Handler
+ .text.BusFault_Handler
+                0x00000168        0x8 ./src/cr_startup_lpc17.o
+                0x00000168                BusFault_Handler
+ .text.UsageFault_Handler
+                0x00000170        0x8 ./src/cr_startup_lpc17.o
+                0x00000170                UsageFault_Handler
+ .text.SVCall_Handler
+                0x00000178        0x8 ./src/cr_startup_lpc17.o
+                0x00000178                SVCall_Handler
+ .text.DebugMon_Handler
+                0x00000180        0x8 ./src/cr_startup_lpc17.o
+                0x00000180                DebugMon_Handler
+ .text.PendSV_Handler
+                0x00000188        0x8 ./src/cr_startup_lpc17.o
+                0x00000188                PendSV_Handler
+ .text.SysTick_Handler
+                0x00000190        0x8 ./src/cr_startup_lpc17.o
+                0x00000190                SysTick_Handler
+ .text.IntDefaultHandler
+                0x00000198        0x8 ./src/cr_startup_lpc17.o
+                0x00000198                ENET_IRQHandler
+                0x00000198                RIT_IRQHandler
+                0x00000198                I2C0_IRQHandler
+                0x00000198                USBActivity_IRQHandler
+                0x00000198                PWM1_IRQHandler
+                0x00000198                I2C1_IRQHandler
+                0x00000198                EINT2_IRQHandler
+                0x00000198                UART1_IRQHandler
+                0x00000198                EINT3_IRQHandler
+                0x00000198                CANActivity_IRQHandler
+                0x00000198                TIMER3_IRQHandler
+                0x00000198                UART0_IRQHandler
+                0x00000198                IntDefaultHandler
+                0x00000198                PLL0_IRQHandler
+                0x00000198                CAN_IRQHandler
+                0x00000198                PLL1_IRQHandler
+                0x00000198                SSP0_IRQHandler
+                0x00000198                I2S_IRQHandler
+                0x00000198                I2C2_IRQHandler
+                0x00000198                RTC_IRQHandler
+                0x00000198                TIMER0_IRQHandler
+                0x00000198                SPI_IRQHandler
+                0x00000198                EINT1_IRQHandler
+                0x00000198                TIMER1_IRQHandler
+                0x00000198                UART2_IRQHandler
+                0x00000198                ADC_IRQHandler
+                0x00000198                SSP1_IRQHandler
+                0x00000198                BOD_IRQHandler
+                0x00000198                WDT_IRQHandler
+                0x00000198                QEI_IRQHandler
+                0x00000198                EINT0_IRQHandler
+                0x00000198                DMA_IRQHandler
+                0x00000198                UART3_IRQHandler
+                0x00000198                MCPWM_IRQHandler
+                0x00000198                TIMER2_IRQHandler
+ .text.NVIC_SetPriorityGrouping
+                0x000001a0       0x48 ./src/memory.o
+ .text.main     0x000001e8       0x5c ./src/memory.o
+                0x000001e8                main
+ .text.MSC_Reset
+                0x00000244       0x18 ./src/mscuser.o
+                0x00000244                MSC_Reset
+ .text.MSC_GetMaxLUN
+                0x0000025c       0x18 ./src/mscuser.o
+                0x0000025c                MSC_GetMaxLUN
+ .text.MSC_MemoryRead
+                0x00000274       0xa8 ./src/mscuser.o
+                0x00000274                MSC_MemoryRead
+ .text.MSC_MemoryWrite
+                0x0000031c       0xc8 ./src/mscuser.o
+                0x0000031c                MSC_MemoryWrite
+ .text.MSC_MemoryVerify
+                0x000003e4       0xe8 ./src/mscuser.o
+                0x000003e4                MSC_MemoryVerify
+ .text.MSC_RWSetup
+                0x000004cc       0x84 ./src/mscuser.o
+                0x000004cc                MSC_RWSetup
+ .text.DataInFormat
+                0x00000550       0x48 ./src/mscuser.o
+                0x00000550                DataInFormat
+ .text.DataInTransfer
+                0x00000598       0x5c ./src/mscuser.o
+                0x00000598                DataInTransfer
+ .text.MSC_TestUnitReady
+                0x000005f4       0x3c ./src/mscuser.o
+                0x000005f4                MSC_TestUnitReady
+ .text.MSC_RequestSense
+                0x00000630       0x94 ./src/mscuser.o
+                0x00000630                MSC_RequestSense
+ .text.MSC_Inquiry
+                0x000006c4      0x108 ./src/mscuser.o
+                0x000006c4                MSC_Inquiry
+ .text.MSC_ModeSense6
+                0x000007cc       0x40 ./src/mscuser.o
+                0x000007cc                MSC_ModeSense6
+ .text.MSC_ModeSense10
+                0x0000080c       0x58 ./src/mscuser.o
+                0x0000080c                MSC_ModeSense10
+ .text.MSC_ReadCapacity
+                0x00000864       0x58 ./src/mscuser.o
+                0x00000864                MSC_ReadCapacity
+ .text.MSC_ReadFormatCapacity
+                0x000008bc       0x70 ./src/mscuser.o
+                0x000008bc                MSC_ReadFormatCapacity
+ .text.MSC_GetCBW
+                0x0000092c      0x2fc ./src/mscuser.o
+                0x0000092c                MSC_GetCBW
+ .text.MSC_SetCSW
+                0x00000c28       0x2c ./src/mscuser.o
+                0x00000c28                MSC_SetCSW
+ .text.MSC_BulkIn
+                0x00000c54       0x5c ./src/mscuser.o
+                0x00000c54                MSC_BulkIn
+ .text.MSC_BulkOut
+                0x00000cb0       0x70 ./src/mscuser.o
+                0x00000cb0                MSC_BulkOut
+ .text.USB_ResetCore
+                0x00000d20       0x40 ./src/usbcore.o
+                0x00000d20                USB_ResetCore
+ .text.USB_SetupStage
+                0x00000d60       0x14 ./src/usbcore.o
+                0x00000d60                USB_SetupStage
+ .text.USB_DataInStage
+                0x00000d74       0x54 ./src/usbcore.o
+                0x00000d74                USB_DataInStage
+ .text.USB_DataOutStage
+                0x00000dc8       0x3c ./src/usbcore.o
+                0x00000dc8                USB_DataOutStage
+ .text.USB_StatusInStage
+                0x00000e04       0x12 ./src/usbcore.o
+                0x00000e04                USB_StatusInStage
+ *fill*         0x00000e16        0x2 ff
+ .text.USB_StatusOutStage
+                0x00000e18       0x14 ./src/usbcore.o
+                0x00000e18                USB_StatusOutStage
+ .text.USB_EndPoint0
+                0x00000e2c      0x338 ./src/usbcore.o
+                0x00000e2c                USB_EndPoint0
+ .text.NVIC_EnableIRQ
+                0x00001164       0x30 ./src/usbhw.o
+ .text.EPAdr    0x00001194       0x2e ./src/usbhw.o
+                0x00001194                EPAdr
+ *fill*         0x000011c2        0x2 ff
+ .text.WrCmd    0x000011c4       0x38 ./src/usbhw.o
+                0x000011c4                WrCmd
+ .text.WrCmdDat
+                0x000011fc       0x5c ./src/usbhw.o
+                0x000011fc                WrCmdDat
+ .text.RdCmdDat
+                0x00001258       0x3c ./src/usbhw.o
+                0x00001258                RdCmdDat
+ .text.USB_Init
+                0x00001294       0x9c ./src/usbhw.o
+                0x00001294                USB_Init
+ .text.USB_Connect
+                0x00001330       0x30 ./src/usbhw.o
+                0x00001330                USB_Connect
+ .text.USB_Reset
+                0x00001360       0xf8 ./src/usbhw.o
+                0x00001360                USB_Reset
+ .text.USB_Suspend
+                0x00001458        0xc ./src/usbhw.o
+                0x00001458                USB_Suspend
+ .text.USB_Resume
+                0x00001464        0xc ./src/usbhw.o
+                0x00001464                USB_Resume
+ .text.USB_SetAddress
+                0x00001470       0x3c ./src/usbhw.o
+                0x00001470                USB_SetAddress
+ .text.USB_DirCtrlEP
+                0x000014ac       0x12 ./src/usbhw.o
+                0x000014ac                USB_DirCtrlEP
+ *fill*         0x000014be        0x2 ff
+ .text.USB_SetStallEP
+                0x000014c0       0x30 ./src/usbhw.o
+                0x000014c0                USB_SetStallEP
+ .text.USB_ClrStallEP
+                0x000014f0       0x2c ./src/usbhw.o
+                0x000014f0                USB_ClrStallEP
+ .text.USB_ReadEP
+                0x0000151c       0xa4 ./src/usbhw.o
+                0x0000151c                USB_ReadEP
+ .text.USB_WriteEP
+                0x000015c0       0x84 ./src/usbhw.o
+                0x000015c0                USB_WriteEP
+ .text.USB_IRQHandler
+                0x00001644      0x2dc ./src/usbhw.o
+                0x00001644                USB_IRQHandler
+ .text.USB_Reset_Event
+                0x00001920        0xc ./src/usbuser.o
+                0x00001920                USB_Reset_Event
+ .text.USB_Configure_Event
+                0x0000192c        0xc ./src/usbuser.o
+                0x0000192c                USB_Configure_Event
+ .text.USB_EndPoint2
+                0x00001938       0x2a ./src/usbuser.o
+                0x00001938                USB_EndPoint2
+ *fill*         0x00001962        0x2 ff
+ .text.SystemInit
+                0x00001964      0x140 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+                0x00001964                SystemInit
+ .text.NVIC_DeInit
+                0x00001aa4       0x58 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+                0x00001aa4                NVIC_DeInit
+ .text.NVIC_SCBDeInit
+                0x00001afc       0x74 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+                0x00001afc                NVIC_SCBDeInit
+ .text.NVIC_SetVTOR
+                0x00001b70       0x1c /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+                0x00001b70                NVIC_SetVTOR
+ *(.rodata .rodata.* .constdata .constdata.*)
+ .rodata        0x00001b8c     0x1000 ./src/DiskImg.o
+                0x00001b8c                DiskImage
+ .rodata        0x00002b8c       0x40 ./src/usbuser.o
+                0x00002b8c                USB_P_EP
+                0x00002bcc                        . = ALIGN (0x4)
+
+.glue_7         0x00002bcc        0x0
+ .glue_7        0x00002bcc        0x0 linker stubs
+
+.glue_7t        0x00002bcc        0x0
+ .glue_7t       0x00002bcc        0x0 linker stubs
+
+.vfp11_veneer   0x00002bcc        0x0
+ .vfp11_veneer  0x00002bcc        0x0 linker stubs
+
+.v4_bx          0x00002bcc        0x0
+ .v4_bx         0x00002bcc        0x0 linker stubs
+
+.iplt           0x00002bcc        0x0
+ .iplt          0x00002bcc        0x0 ./src/cr_startup_lpc17.o
+
+.rel.dyn        0x00002bcc        0x0
+ .rel.iplt      0x00002bcc        0x0 ./src/cr_startup_lpc17.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM.exidx      0x00002bcc        0x0
+                0x00002bcc                        __exidx_start = .
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00002bcc                        __exidx_end = .
+                0x00002bcc                        _etext = .
+
+.data_RAM2      0x2007c000        0x0 load address 0x00002bcc
+ FILL mask 0xff
+                [!provide]                        PROVIDE (__start_data_RAM2 = .)
+                [!provide]                        PROVIDE (__start_data_RamAHB32 = .)
+ *(.ramfunc.$RAM2)
+ *(.ramfunc.$RamAHB32)
+ *(.data.$RAM2)
+ *(.data.$RamAHB32)
+ *(.data.$RAM2.*)
+ *(.data.$RamAHB32.*)
+                0x2007c000                        . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__end_data_RAM2 = .)
+                [!provide]                        PROVIDE (__end_data_RamAHB32 = .)
+
+.uninit_RESERVED
+                0x10000000        0x0
+                0x10000000                        _start_uninit_RESERVED = .
+ *(.bss.$RESERVED*)
+                0x10000000                        . = ALIGN (0x4)
+                0x10000000                        _end_uninit_RESERVED = .
+
+.data           0x10000000        0x0 load address 0x00002bcc
+ FILL mask 0xff
+                0x10000000                        _data = .
+                [!provide]                        PROVIDE (__start_data_RAM = .)
+                [!provide]                        PROVIDE (__start_data_RamLoc32 = .)
+ *(vtable)
+ *(.ramfunc*)
+ *(CodeQuickAccess)
+ *(DataQuickAccess)
+ *(RamFunction)
+ *(.data*)
+                0x10000000                        . = ALIGN (0x4)
+                0x10000000                        _edata = .
+                [!provide]                        PROVIDE (__end_data_RAM = .)
+                [!provide]                        PROVIDE (__end_data_RamLoc32 = .)
+
+.igot.plt       0x10000000        0x0 load address 0x00002bcc
+ .igot.plt      0x10000000        0x0 ./src/cr_startup_lpc17.o
+
+USB_RAM         0x10000000      0x220 load address 0x00002bcc
+ USB_RAM        0x10000000      0x220 ./src/usbhw.o
+                0x10000000                UDCA
+                0x10000080                DD_NISO_Mem
+                0x10000180                DD_ISO_Mem
+
+.bss_RAM2       0x2007c000        0x0
+                [!provide]                        PROVIDE (__start_bss_RAM2 = .)
+                [!provide]                        PROVIDE (__start_bss_RamAHB32 = .)
+ *(.bss.$RAM2)
+ *(.bss.$RamAHB32)
+ *(.bss.$RAM2.*)
+ *(.bss.$RamAHB32.*)
+                0x2007c000                        . = ALIGN ((. != 0x0)?0x4:0x1)
+                [!provide]                        PROVIDE (__end_bss_RAM2 = .)
+                [!provide]                        PROVIDE (__end_bss_RamAHB32 = .)
+
+.bss            0x10000220     0x2170
+                0x10000220                        _bss = .
+                [!provide]                        PROVIDE (__start_bss_RAM = .)
+                [!provide]                        PROVIDE (__start_bss_RamLoc32 = .)
+ *(.bss*)
+ .bss           0x10000220     0x2081 ./src/mscuser.o
+                0x10000220                Memory
+                0x10002220                MemOK
+                0x10002224                Offset
+                0x10002228                Length
+                0x1000222c                BulkStage
+                0x10002230                BulkBuf
+                0x10002270                BulkLen
+                0x10002274                CBW
+                0x10002294                CSW
+ *fill*         0x100022a1        0x3 
+ .bss           0x100022a4       0x64 ./src/usbcore.o
+                0x100022a4                USB_DeviceStatus
+                0x100022a6                USB_DeviceAddress
+                0x100022a7                USB_Configuration
+                0x100022a8                USB_EndPointMask
+                0x100022ac                USB_EndPointHalt
+                0x100022b0                USB_NumInterfaces
+                0x100022b4                USB_AltSetting
+                0x100022b8                EP0Buf
+                0x100022f8                EP0Data
+                0x10002300                SetupPacket
+ .bss           0x10002308       0x88 ./src/usbhw.o
+                0x10002308                udca
+                0x10002388                DDMemMap
+ *(COMMON)
+                0x10002390                        . = ALIGN (0x4)
+                0x10002390                        _ebss = .
+                [!provide]                        PROVIDE (__end_bss_RAM = .)
+                [!provide]                        PROVIDE (__end_bss_RamLoc32 = .)
+                [!provide]                        PROVIDE (end = .)
+
+.noinit_RAM2    0x2007c000        0x0
+                [!provide]                        PROVIDE (__start_noinit_RAM2 = .)
+                [!provide]                        PROVIDE (__start_noinit_RamAHB32 = .)
+ *(.noinit.$RAM2)
+ *(.noinit.$RamAHB32)
+ *(.noinit.$RAM2.*)
+ *(.noinit.$RamAHB32.*)
+                0x2007c000                        . = ALIGN (0x4)
+                [!provide]                        PROVIDE (__end_noinit_RAM2 = .)
+                [!provide]                        PROVIDE (__end_noinit_RamAHB32 = .)
+
+.noinit         0x10002390        0x0
+                0x10002390                        _noinit = .
+                [!provide]                        PROVIDE (__start_noinit_RAM = .)
+                [!provide]                        PROVIDE (__start_noinit_RamLoc32 = .)
+ *(.noinit*)
+                0x10002390                        . = ALIGN (0x4)
+                0x10002390                        _end_noinit = .
+                [!provide]                        PROVIDE (__end_noinit_RAM = .)
+                [!provide]                        PROVIDE (__end_noinit_RamLoc32 = .)
+                [!provide]                        PROVIDE (_pvHeapStart = DEFINED (__user_heap_base)?__user_heap_base:.)
+                0x10008000                        PROVIDE (_vStackTop = DEFINED (__user_stack_top)?__user_stack_top:(__top_RamLoc32 - 0x0))
+                [!provide]                        PROVIDE (__valid_user_code_checksum = (0x0 - ((((((_vStackTop + (ResetISR + 0x1)) + (NMI_Handler + 0x1)) + (HardFault_Handler + 0x1)) + (DEFINED (MemManage_Handler)?MemManage_Handler:0x0 + 0x1)) + (DEFINED (BusFault_Handler)?BusFault_Handler:0x0 + 0x1)) + (DEFINED (UsageFault_Handler)?UsageFault_Handler:0x0 + 0x1))))
+                0x00000000                        _image_start = LOADADDR (.text)
+                0x00002bcc                        _image_end = (LOADADDR (.data) + SIZEOF (.data))
+                0x00002bcc                        _image_size = (_image_end - _image_start)
+OUTPUT(usbmem.axf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x00000000     0x2e83
+ .debug_info    0x00000000       0xa5 ./src/DiskImg.o
+ .debug_info    0x000000a5      0x1d6 ./src/cr_startup_lpc17.o
+ .debug_info    0x0000027b      0x30c ./src/memory.o
+ .debug_info    0x00000587      0x443 ./src/mscuser.o
+ .debug_info    0x000009ca      0x79e ./src/usbcore.o
+ .debug_info    0x00001168     0x13a8 ./src/usbhw.o
+ .debug_info    0x00002510      0x35f ./src/usbuser.o
+ .debug_info    0x0000286f      0x2ba /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x00002b29      0x35a /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_abbrev   0x00000000      0xefc
+ .debug_abbrev  0x00000000       0x63 ./src/DiskImg.o
+ .debug_abbrev  0x00000063       0xf0 ./src/cr_startup_lpc17.o
+ .debug_abbrev  0x00000153      0x160 ./src/memory.o
+ .debug_abbrev  0x000002b3      0x217 ./src/mscuser.o
+ .debug_abbrev  0x000004ca      0x2ec ./src/usbcore.o
+ .debug_abbrev  0x000007b6      0x3c8 ./src/usbhw.o
+ .debug_abbrev  0x00000b7e      0x163 ./src/usbuser.o
+ .debug_abbrev  0x00000ce1       0xf5 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_abbrev  0x00000dd6      0x126 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_aranges  0x00000000      0x3b8
+ .debug_aranges
+                0x00000000       0x18 ./src/DiskImg.o
+ .debug_aranges
+                0x00000018       0x70 ./src/cr_startup_lpc17.o
+ .debug_aranges
+                0x00000088       0x28 ./src/memory.o
+ .debug_aranges
+                0x000000b0       0xb0 ./src/mscuser.o
+ .debug_aranges
+                0x00000160       0x50 ./src/usbcore.o
+ .debug_aranges
+                0x000001b0      0x110 ./src/usbhw.o
+ .debug_aranges
+                0x000002c0       0xa0 ./src/usbuser.o
+ .debug_aranges
+                0x00000360       0x28 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_aranges
+                0x00000388       0x30 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_macro    0x00000000     0x4232
+ .debug_macro   0x00000000       0x7b ./src/DiskImg.o
+ .debug_macro   0x0000007b      0xad8 ./src/DiskImg.o
+ .debug_macro   0x00000b53       0x22 ./src/DiskImg.o
+ .debug_macro   0x00000b75       0x8e ./src/DiskImg.o
+ .debug_macro   0x00000c03       0x51 ./src/DiskImg.o
+ .debug_macro   0x00000c54      0x103 ./src/DiskImg.o
+ .debug_macro   0x00000d57       0x6a ./src/DiskImg.o
+ .debug_macro   0x00000dc1      0x1df ./src/DiskImg.o
+ .debug_macro   0x00000fa0       0x5e ./src/DiskImg.o
+ .debug_macro   0x00000ffe       0x2e ./src/DiskImg.o
+ .debug_macro   0x0000102c       0x79 ./src/cr_startup_lpc17.o
+ .debug_macro   0x000010a5       0xe0 ./src/memory.o
+ .debug_macro   0x00001185       0x1c ./src/memory.o
+ .debug_macro   0x000011a1       0x22 ./src/memory.o
+ .debug_macro   0x000011c3      0x7b7 ./src/memory.o
+ .debug_macro   0x0000197a      0x2c7 ./src/memory.o
+ .debug_macro   0x00001c41       0x64 ./src/memory.o
+ .debug_macro   0x00001ca5      0x1ec ./src/memory.o
+ .debug_macro   0x00001e91       0xcd ./src/memory.o
+ .debug_macro   0x00001f5e       0xac ./src/memory.o
+ .debug_macro   0x0000200a       0x2e ./src/memory.o
+ .debug_macro   0x00002038       0x3a ./src/memory.o
+ .debug_macro   0x00002072       0xd2 ./src/mscuser.o
+ .debug_macro   0x00002144       0xf4 ./src/mscuser.o
+ .debug_macro   0x00002238       0xbb ./src/usbcore.o
+ .debug_macro   0x000022f3       0x28 ./src/usbcore.o
+ .debug_macro   0x0000231b       0x58 ./src/usbcore.o
+ .debug_macro   0x00002373       0xe1 ./src/usbhw.o
+ .debug_macro   0x00002454      0x1df ./src/usbhw.o
+ .debug_macro   0x00002633       0xd9 ./src/usbuser.o
+ .debug_macro   0x0000270c      0x113 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000281f      0xad2 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x000032f1       0x10 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x00003301      0x12e /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x0000342f      0x5b3 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x000039e2      0x7d5 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_macro   0x000041b7       0x7b /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_line     0x00000000     0x3680
+ .debug_line    0x00000000      0x33a ./src/DiskImg.o
+ .debug_line    0x0000033a      0x45b ./src/cr_startup_lpc17.o
+ .debug_line    0x00000795      0x4a0 ./src/memory.o
+ .debug_line    0x00000c35      0x9a5 ./src/mscuser.o
+ .debug_line    0x000015da      0x61a ./src/usbcore.o
+ .debug_line    0x00001bf4      0xd70 ./src/usbhw.o
+ .debug_line    0x00002964      0x592 ./src/usbuser.o
+ .debug_line    0x00002ef6      0x430 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_line    0x00003326      0x35a /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_str      0x00000000     0xc642
+ .debug_str     0x00000000     0xc642 ./src/DiskImg.o
+                               0x3fa5 (size before relaxing)
+ .debug_str     0x0000c642     0x3ee2 ./src/cr_startup_lpc17.o
+ .debug_str     0x0000c642     0x8f19 ./src/memory.o
+ .debug_str     0x0000c642     0x92dd ./src/mscuser.o
+ .debug_str     0x0000c642     0x5797 ./src/usbcore.o
+ .debug_str     0x0000c642     0x9f24 ./src/usbhw.o
+ .debug_str     0x0000c642     0x9013 ./src/usbuser.o
+ .debug_str     0x0000c642     0x88f8 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_str     0x0000c642     0x8788 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.comment        0x00000000       0x44
+ .comment       0x00000000       0x44 ./src/DiskImg.o
+                                 0x45 (size before relaxing)
+ .comment       0x00000044       0x45 ./src/cr_startup_lpc17.o
+ .comment       0x00000044       0x45 ./src/memory.o
+ .comment       0x00000044       0x45 ./src/mscuser.o
+ .comment       0x00000044       0x45 ./src/usbcore.o
+ .comment       0x00000044       0x45 ./src/usbhw.o
+ .comment       0x00000044       0x45 ./src/usbuser.o
+ .comment       0x00000044       0x45 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .comment       0x00000044       0x45 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.ARM.attributes
+                0x00000000       0x2d
+ .ARM.attributes
+                0x00000000       0x2d ./src/DiskImg.o
+ .ARM.attributes
+                0x0000002d       0x2d ./src/cr_startup_lpc17.o
+ .ARM.attributes
+                0x0000005a       0x2d ./src/memory.o
+ .ARM.attributes
+                0x00000087       0x2d ./src/mscuser.o
+ .ARM.attributes
+                0x000000b4       0x2d ./src/usbcore.o
+ .ARM.attributes
+                0x000000e1       0x2d ./src/usbhw.o
+ .ARM.attributes
+                0x0000010e       0x2d ./src/usbuser.o
+ .ARM.attributes
+                0x0000013b       0x2d /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .ARM.attributes
+                0x00000168       0x2d /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_rnglists
+                0x00000000      0x2a1
+ .debug_rnglists
+                0x00000000       0x4f ./src/cr_startup_lpc17.o
+ .debug_rnglists
+                0x0000004f       0x19 ./src/memory.o
+ .debug_rnglists
+                0x00000068       0x86 ./src/mscuser.o
+ .debug_rnglists
+                0x000000ee       0x38 ./src/usbcore.o
+ .debug_rnglists
+                0x00000126       0xce ./src/usbhw.o
+ .debug_rnglists
+                0x000001f4       0x73 ./src/usbuser.o
+ .debug_rnglists
+                0x00000267       0x1b /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_rnglists
+                0x00000282       0x1f /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+
+.debug_frame    0x00000000      0xcc8
+ .debug_frame   0x00000000      0x120 ./src/cr_startup_lpc17.o
+ .debug_frame   0x00000120       0x58 ./src/memory.o
+ .debug_frame   0x00000178      0x258 ./src/mscuser.o
+ .debug_frame   0x000003d0       0xf4 ./src/usbcore.o
+ .debug_frame   0x000004c4      0x478 ./src/usbhw.o
+ .debug_frame   0x0000093c      0x2a0 ./src/usbuser.o
+ .debug_frame   0x00000bdc       0x64 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_frame   0x00000c40       0x88 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)

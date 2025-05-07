@@ -44,27 +44,6 @@ static void init_uart(void)
 }
 
 
-TIMER1_IRQHandler (void)
-{
-  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR0_INT))
-    {
-      GPIO_ClearValue (LED_RED_PORT, _BIT(LED_RED_PIN));             // wyłącz
-      GPIO_ClearValue (LED_BLUE_PORT_ALT, _BIT(LED_BLUE_PIN_ALT));   // włącz
-                                                                     // ta sama instrukcja,
-                                                                     // ale inaczej włączona dioda
-                                                                     // sprzętowo!
-      TIM_ClearIntPending (LPC_TIM1, TIM_MR0_INT);
-    }
-  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR1_INT))
-    {
-      GPIO_SetValue (LED_RED_PORT, _BIT(LED_RED_PIN));              // włącz
-      GPIO_SetValue (LED_BLUE_PORT_ALT, _BIT(LED_BLUE_PIN_ALT));    // wyłącz
-								    // ta sama instrukcja!!!
-      TIM_ClearIntPending (LPC_TIM1, TIM_MR1_INT);
-    }
-}
-
-
 int main (void)
 {
 	PINSEL_CFG_Type PinCfg;

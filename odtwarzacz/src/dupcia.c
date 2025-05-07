@@ -18,65 +18,81 @@
 #include "lpc17xx_dac.h"
 #include "lpc17xx_rtc.h"
 #include "lpc17xx_clkpwr.h"
-
+#include "stdbool.h"
 
 #include "diskio.h"				/* obsługa systemu plików FAT i nośnika SD */
 #include "ff.h"
 
 #include "oled.h"				/* obsluga OLEDu */
 #include "acc.h"
-
 #include "light.h"				/* biblioteka od czujnika swiatla */
 
 #define UART_DEV LPC_UART3		/* def UART3 jako domyślne urządzenie do komunikacji szeregowej */
+#define SAMPLE_RATE 8000
+#define DELAY 1000000 / 8000
+
+#define BUF_SIZE (1024)
+
 
 static FILINFO Finfo;			/* przechowanie inf o plikach */
 static FATFS Fatfs[1];			/* reprezentacja systemu plików FAT */
 static uint8_t buf[64];			/* bufor do danych wysyłanych przez UART */
 
-uint8_t bufor1[512];
-uint8_t bufor2[512];
+/* bufory do wav */
+uint8_t bufor1[BUF_SIZE];
+uint8_t bufor2[BUF_SIZE];
 
-void
-TIMER1_IRQHandler (void)
-{
-  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR0_INT))
-    {
+volatile bool bufor1_pusty = true;
+volatile bool bufor2_pusty = true;
 
-      TIM_ClearIntPending (LPC_TIM1, TIM_MR0_INT);
-    }
-  if (TIM_GetIntStatus (LPC_TIM1, TIM_MR1_INT))
-    {
+volatile int aktualnyBufor = 0;
+volatile int potrzebaWypelnienia = 1;
 
-      TIM_ClearIntPending (LPC_TIM1, TIM_MR1_INT);
+uint32_t dataOffset = 0;
+FIL wavFile;
+
+void TIMER1_IRQHandler(void) {
+    static uint32_t pozycja = 0;
+
+    if (TIM_GetIntStatus(LPC_TIM1, TIM_MR0_INT)) {
+        if (aktualnyBufor == 0) {
+            DAC_UpdateValue(LPC_DAC, bufor1[pozycja]);
+        } else {
+            DAC_UpdateValue(LPC_DAC, bufor2[pozycja]);
+        }
+
+        pozycja++;
+
+        if (pozycja >= BUF_SIZE) {
+            pozycja = 0;
+            aktualnyBufor ^= 1;
+            potrzebaWypelnienia = 1;
+        }
+
+        TIM_ClearIntPending(LPC_TIM1, TIM_MR0_INT);
     }
 }
 
-static void
-init_Timer (void)
+static void init_Timer (void)
 {
   TIM_TIMERCFG_Type Config;
   TIM_MATCHCFG_Type Match_Cfg;
 
   Config.PrescaleOption = TIM_PRESCALE_USVAL;
-  Config.PrescaleValue = 1000; // czyli 1 milisekunda
+  Config.PrescaleValue = 1; // czyli 1 mikrosek
 
   //najpierw włączyć zasilanie
-  CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_TIMER1, CLKPWR_PCLKSEL_CCLK_DIV_1);
+  CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_TIMER1, CLKPWR_PCLKSEL_CCLK_DIV_4);
   // Ustawić timer.
   TIM_Cmd (LPC_TIM1, DISABLE); // to w zasadzie jest niepotrzebne, ponieważ po włączeniu zasilania timer jest nieczynny,
   TIM_Init (LPC_TIM1, TIM_TIMER_MODE, &Config);
 
   Match_Cfg.ExtMatchOutputType = TIM_EXTMATCH_NOTHING;
   Match_Cfg.IntOnMatch = TRUE;
-  Match_Cfg.ResetOnMatch = FALSE;
+  Match_Cfg.ResetOnMatch = TRUE;
   Match_Cfg.StopOnMatch = FALSE;
   Match_Cfg.MatchChannel = 0;
-  Match_Cfg.MatchValue = 200; // Czyli 200 ms.
-  TIM_ConfigMatch (LPC_TIM1, &Match_Cfg);
-  Match_Cfg.ResetOnMatch = TRUE;
-  Match_Cfg.MatchChannel = 1;
-  Match_Cfg.MatchValue = 2000; // czyli 2 s.
+  Match_Cfg.MatchValue = 125; // Czyli 200 ms.
   TIM_ConfigMatch (LPC_TIM1, &Match_Cfg);
   TIM_Cmd (LPC_TIM1, ENABLE);
   // I odblokować przerwania w VIC
@@ -165,13 +181,41 @@ static void init_ssp(void)		/* inicjalizacja interfejsu SPI */
 
 }
 
+static void init_dac (void) {
+   PINSEL_CFG_Type PinCfg;
+
+	/*
+	 * Init DAC pin connect
+	 * AOUT on P0.26
+	 */
+	PinCfg.Funcnum = 2;
+	PinCfg.OpenDrain = 0;
+	PinCfg.Pinmode = 0;
+	PinCfg.Pinnum = 26;
+	PinCfg.Portnum = 0;
+	PINSEL_ConfigPin(&PinCfg);
+
+	/* init DAC structure to default
+	 * Maximum current is 700 uA
+	 * First value to AOUT is 0
+	 */
+	DAC_Init(LPC_DAC);
+
+	// Inicjalizacja GPIO dla kontroli wzmacniacza audio LM4811
+	GPIO_SetDir(0, 1<<27, 1); // LM4811-clk
+	GPIO_SetDir(0, 1<<28, 1); // LM4811-up/dn
+	GPIO_SetDir(2, 1<<13, 1); // LM4811-shutdn
+
+	GPIO_ClearValue(0, 1<<27); // LM4811-clk
+	GPIO_ClearValue(0, 1<<28); // LM4811-up/dn
+	GPIO_ClearValue(2, 1<<13); // LM4811-shutdn
+}
+
 void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
     disk_timerproc();
 }
 
-
 static uint32_t msTicks = 0;
-
 
 static uint32_t getTicks(void) {
     return msTicks;
@@ -216,15 +260,114 @@ static void init_adc(void) {
 	ADC_Init(LPC_ADC, 200000);
 	ADC_IntConfig(LPC_ADC,ADC_CHANNEL_0,DISABLE);
 	ADC_ChannelCmd(LPC_ADC,ADC_CHANNEL_0,ENABLE);
+}
 
+uint8_t parseWavHeader(FIL* file) {
+	uint8_t header[44];
+	UINT bytesRead;
+	uint32_t sampleRate = 0;
+
+	f_read(file, header, 44, &bytesRead);
+
+	if (bytesRead != 44) {
+	    UART_SendString(UART_DEV, (uint8_t*)"Failed to open\r\n");
+	}
+
+	if (header[0] != 'R' || header[1] != 'I' || header[2] != 'F' || header[3] != 'F') {
+        UART_SendString(UART_DEV, (uint8_t*)"Wrong format\r\n");
+	}
+
+	if (header[8] != 'W' || header[9] != 'A' || header[10] != 'V' || header[11] != 'E') {
+		UART_SendString(UART_DEV, (uint8_t*)"File is not .wav\r\n");
+	}
+
+    if (header[12] != 'f' || header[13] != 'm' || header[14] != 't' || header[15] != ' ') {
+        UART_SendString(UART_DEV, (uint8_t*)"Missing fmt\r\n");
+    }
+
+    sampleRate = (header[24] | (header[25] << 8) | (header[26] << 16) | (header[27] << 24));
+
+    if (sampleRate != SAMPLE_RATE) {
+        UART_SendString(UART_DEV, (uint8_t*)"File not in 8kHz\r\n");
+    }
+
+    uint32_t offset = 36;
+
+    while (offset < 100) {
+        if (header[offset] == 'd' && header[offset+1] == 'a' &&
+            header[offset+2] == 't' && header[offset+3] == 'a') {
+            dataOffset = offset + 8;
+            break;
+        }
+        offset++;
+    }
+
+    if (offset >= 100) {
+        UART_SendString(UART_DEV, (uint8_t*)"Missing data chunk\r\n");
+        return 0;
+    }
+
+    f_lseek(file, dataOffset);
+
+    return 1;
+}
+
+void playWavFile(char* filename) {
+	BYTE res;
+	UINT bytesRead;
+
+    res = f_open(&wavFile, filename, FA_READ);
+    if (res != FR_OK) {
+        sprintf((char*)buf, "Failed to open file: %s, error: %d\r\n", filename, res);
+        UART_Send(UART_DEV, buf, strlen((char*)buf), BLOCKING);
+        return;
+    }
+
+    if (!parseWavHeader(&wavFile)) {
+        UART_SendString(UART_DEV, (uint8_t*)"Invalid WAV file format\r\n");
+        f_close(&wavFile);
+        return;
+    }
+
+    res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
+    bufor1_pusty = false;
+    __enable_irq();
+
+    while (1) {
+    	if (bufor1_pusty) {
+    		res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
+    		bufor1_pusty = false;
+    	}
+
+    	if (bufor2_pusty) {
+    		res = f_read(&wavFile, bufor2, sizeof(bufor2), &bytesRead);
+    		bufor2_pusty = false;
+    	}
+        if (res != FR_OK || bytesRead == 0) {
+            break;
+        }
+/*
+        for (int i = 0; i < bytesRead; i++) {
+            DAC_UpdateValue(LPC_DAC, (uint32_t)(bufor1[i]));
+
+            Timer0_us_Wait(DELAY);
+        }
+        */
+    }
+
+    __disable_irq();
+    f_close(&wavFile);
 }
 
 int main (void) {
     DSTATUS stat;		/* zmienne do obsługi systemu plików FAT */
     DWORD p2;
     WORD w1;
-    BYTE res, b1;
+    BYTE res;
+    BYTE b1;
     DIR dir;
+
+    char firstWavFile[13];
 
     int i = 0;
 
@@ -244,8 +387,9 @@ int main (void) {
     init_i2c();
     init_ssp();		/* inicjalizacja SPI i UART */
     init_adc();
-
+    init_dac();
     init_rtc();
+    init_Timer();
 
     oled_init();
     light_init();
@@ -256,7 +400,6 @@ int main (void) {
     UART_SendString(UART_DEV, (uint8_t*)"MMC/SD example\r\n");		/* wysyła kominikat przez UART */
 
     SysTick_Config(SystemCoreClock / 100);		/* konfiguruje SysTick i czeka 500s */
-
     Timer0_Wait(500);
 
     stat = disk_initialize(0);		/* inicjalizacja karty SD */
@@ -330,6 +473,12 @@ int main (void) {
 		if ((res != FR_OK) || !Finfo.fname[0]) break;
 		oled_putString(1,1 + i * 8, Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	};
+
+
+    if (firstWavFile[0] != '\0') {
+        playWavFile("ptaszki.wav");
+    }
+
 
     acc_read(&x, &y, &z);
     xoff = 0-x;

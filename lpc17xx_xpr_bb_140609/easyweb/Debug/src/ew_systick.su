@@ -1,0 +1,4 @@
+/Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/inc/core_cm3.h:1586:22:NVIC_SetPriority	16	static
+/Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/inc/core_cm3.h:1694:26:SysTick_Config	16	static
+../src/ew_systick.c:37:6:SysTick_Handler	8	static
+../src/ew_systick.c:56:6:Start_SysTick10ms	8	static

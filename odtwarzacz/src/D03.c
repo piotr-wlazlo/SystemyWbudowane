@@ -344,32 +344,21 @@ void playWavFile(char* filename) {
     __enable_irq();
 
     while (1) {
-		int zapelnionyWlasnie = 0;
+    	changeLight();
     	if (bufor1_pusty) {
     		res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
     		bufor1_pusty = false;
-//    		zapelnionyWlasnie = 1;
-
     	}
 
     	if (bufor2_pusty) {
     		res = f_read(&wavFile, bufor2, sizeof(bufor2), &bytesRead);
     		bufor2_pusty = false;
     	}
-        if (res != FR_OK || bytesRead == 0) {
+        if (res != FR_OK || bytesRead == 0 || bytesRead == wavFile.fsize) {
             break;
         }
 
     	changeVolume(rotary_read());
-
-
-/*
-        for (int i = 0; i < bytesRead; i++) {
-            DAC_UpdateValue(LPC_DAC, (uint32_t)(bufor1[i]));
-
-            Timer0_us_Wait(DELAY);
-        }
-        */
     }
 
     __disable_irq();
@@ -381,18 +370,22 @@ void ampInit(){
 	  GPIO_SetDir(0, 1<<28, 1); // up/down
 	  GPIO_SetDir(2, 1<<13, 1); // shutdown
 
-	  //0 na shutdown, czyli włączenie
+	  // 0 na shutdown, czyli włączenie
 	  GPIO_ClearValue(2, 1<<13);
 }
 
 void changeVolume(uint8_t rotaryDir)
-{ /* początkowo clock=0 i UP=1*/
+{
+    /* początkowo clock=0 i UP=1*/
 	if (rotaryDir == ROTARY_RIGHT) {
 		  GPIO_SetValue(0, 1<<28); // up
 	}
-	if (rotaryDir == ROTARY_LEFT) {
+	else if (rotaryDir == ROTARY_LEFT) {
 		  GPIO_ClearValue(0, 1<<28); // down
+	} else {
+		return;
 	}
+
 	GPIO_SetValue(0, 1<<27);
 	Timer0_us_Wait(100);
 	GPIO_ClearValue(0, 1<<27);
@@ -402,46 +395,55 @@ void changeVolume(uint8_t rotaryDir)
 int chooseSong(uint8_t songIndex)
 {
     uint8_t joy = 0;
-	while(1)
-	{
+//	while(1)
+//	{
 		joy = joystick_read();
 
 		if ((joy & JOYSTICK_CENTER) != 0) {
 	    	playWavFile(songsList[songIndex]);
-			break;
+//			break;
 		}
 
-		if ((joy & JOYSTICK_DOWN) != 0 || (joy & JOYSTICK_LEFT) != 0) {
-			if(songIndex == 0) {
-				songIndex = songs - 1;
-			}
-			else {
-				songIndex--;
-			}
-
-			if ((joy & JOYSTICK_LEFT) != 0) {
-				playWavFile(songsList[songIndex]);
-		    	break;
-			}
-		}
-
-		if ((joy & JOYSTICK_UP) != 0 || (joy & JOYSTICK_RIGHT) != 0) {
+		else if ((joy & JOYSTICK_DOWN) != 0) {
 			if(songIndex == songs - 1) {
 				songIndex = 0;
 			}
 			else {
 				songIndex++;
 			}
+		}
 
-			if ((joy & JOYSTICK_RIGHT) != 0) {
-				playWavFile(songsList[songIndex]);
-		    	break;
+		else if ((joy & JOYSTICK_UP) != 0) {
+			if(songIndex == 0) {
+				songIndex = songs - 1;
 			}
-
+			else {
+				songIndex--;
+			}
 		}
 		Timer0_Wait(200);
-	}
+//	}
 	return songIndex;
+}
+
+//void selected(uint8_t nameIndex) {
+//	oled_putString(0, nameIndex * 8 + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+//}
+//
+//void unselected(uint8_t nameIndex) {
+//	oled_putString(0, nameIndex * 8 + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+//}
+
+void changeLight() {
+	uint32_t lux = 0;
+	lux = light_read(); /* pomiar swiatla */
+
+	if (lux < 100) {
+		oled_setInvertDisplay();
+	} else {
+		oled_setNormalDisplay();
+	}
+	Timer0_Wait(100);
 }
 
 
@@ -464,7 +466,7 @@ int main (void) {
     int8_t z = 0;
 
     int32_t t = 0;
-    uint32_t lux = 0;
+//    uint32_t lux = 0;
     uint32_t trim = 0;
 
     init_uart();
@@ -546,7 +548,7 @@ int main (void) {
     oled_clearScreen(OLED_COLOR_WHITE);
 
     /* odczytuje i wypisuje nazwy plików z katalogu głównego */
-    for(int i = 1; i < 10; i++) {
+    for(int i = 0; i < 10; i++) {
 		res = f_readdir(&dir, &Finfo);
 		if (Finfo.fname[0] == '_' || (Finfo.fattrib & AM_DIR)) {
 			i--;
@@ -581,18 +583,18 @@ int main (void) {
 
 
 	uint8_t songIndex = 0;
+	//selected(songIndex);
     while(1) {
+    	changeLight();
     	songIndex = chooseSong(songIndex);
 
-		lux = light_read(); /* pomiar swiatla */
+//		lux = light_read(); /* pomiar swiatla */
 
-		if (lux < 100) {
-			oled_setInvertDisplay();
-		} else {
-		    oled_setNormalDisplay();
-		}
-
-		Timer0_Wait(100);
+//		if (lux < 100) {
+//			oled_setInvertDisplay();
+//		} else {
+//		    oled_setNormalDisplay();
+//		}
     };
 
 }

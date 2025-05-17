@@ -24,17 +24,16 @@ OPCJONALNIE
 1. akcelerometr do przewijania utworów w zależności od pochylenia płytki
 
 Zrealizowane:
-1. odczyt z karty SD
-2. SPI/SSP
-3. joystick
-4. odtwarzanie wave - DAC
-5. timer
-6. przerwania
-7. regulacja głośności przez wzmacniacz - amp
-8. wyświetlanie na OLED
-9. czujnik światła
-10. I2C
+1. Karta SD
+2. Interfejs SPI
+3. OLED
+4. DAC
+5. Timer
+6. Przerwania
+7. Czujnik światła
+8. Interfejs I2C
+9. AMP
+10. Rotary switch
+11. Joystick - GPIO
++ RealTimeClock
 
-Jeszcze:
-- RealTimeClock
-- adc potencjometr (?)

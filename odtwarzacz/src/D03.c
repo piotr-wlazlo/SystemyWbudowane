@@ -111,15 +111,41 @@ static void init_rtc(void)
     RTC_ResetClockTickCounter(LPC_RTC);
     RTC_Cmd(LPC_RTC, ENABLE);
 
+    char uartBuf[32];
+    int sec = 0;
+    int min = 0;
+    int hour = 0;
+    int dom = 0;
+    int month = 0;
+    int year = 0;
+
+    int i = 0;
+    char c;
+    while (i < 31) {
+        while (!UART_Receive(UART_DEV, (uint8_t*)&c, 1, NONE_BLOCKING));
+        if (c == '\n' || c == '\r') break;
+        uartBuf[i++] = c;
+    }
+    uartBuf[i] = '\0';
+
+    if (sscanf(uartBuf,"%d-%d-%d %d:%d:%d", &year, &month, &dom, &hour, &min, &sec) != 3) {
+        sec = 00;
+        min = 37;
+        hour = 21;
+        dom = 9;
+        month = 4;
+        year = 2005;
+    }
+
     RTC_TIME_Type RTCTime;
-    RTCTime.SEC = 0;
-    RTCTime.MIN = 37;
-    RTCTime.HOUR = 21;
-    RTCTime.DOM = 9;
+    RTCTime.SEC = sec;
+    RTCTime.MIN = min;
+    RTCTime.HOUR = hour;
+    RTCTime.DOM = dom;
     RTCTime.DOW = 6;
     RTCTime.DOY = 92;
-    RTCTime.MONTH = 4;
-    RTCTime.YEAR = 2005;
+    RTCTime.MONTH = month;
+    RTCTime.YEAR = year;
 
     RTC_SetFullTime(LPC_RTC, &RTCTime);
 }
@@ -357,7 +383,7 @@ static void init_amp(void){
 	GPIO_ClearValue(2, 1UL << 13);	// 0 na shutdown, czyli włączenie
 }
 
-static void changeVolume(uint8_t rotaryDir)
+void changeVolume(uint8_t rotaryDir)
 {
 	// początkowo clock=0 i UP=1
 	if (rotaryDir == ROTARY_RIGHT) {
@@ -406,6 +432,7 @@ static int chooseSong(uint8_t songIndex)
 		}
 		Timer0_Wait(200);
 //	}
+
 	return songIndex;
 }
 
@@ -417,7 +444,7 @@ static int chooseSong(uint8_t songIndex)
 //	oled_putString(0, nameIndex * 8 + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 //}
 
-static void changeLight(void) {
+void changeLight(void) {
 	uint32_t lux = 0;
 	lux = light_read(); // pomiar swiatla
 
@@ -525,7 +552,6 @@ int main (void) {
         UART_Send(UART_DEV, buf, i, BLOCKING);
         return 1;
     }
-
     RTC_TIME_Type currentTime;
     uint8_t timeStr[40];
 

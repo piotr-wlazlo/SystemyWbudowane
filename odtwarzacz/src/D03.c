@@ -22,9 +22,7 @@
 
 #include "diskio.h"				/* obsługa systemu plików FAT i nośnika SD */
 #include "ff.h"
-
 #include "oled.h"				/* obsluga OLEDu */
-#include "acc.h"
 #include "light.h"				/* biblioteka od czujnika swiatla */
 #include "rotary.h"
 
@@ -325,12 +323,12 @@ static void changeLight() {
 	uint32_t lux = 0;
 	lux = light_read(); /* pomiar swiatla */
 
-	if (lux < 100U) {
+	if (lux < 100) {
 		oled_setInvertDisplay();
 	} else {
 		oled_setNormalDisplay();
 	}
-	Timer0_Wait(100);
+	//Timer0_Wait(100);
 }
 
 
@@ -390,52 +388,37 @@ static void init_amp(void){
 static int chooseSong(uint8_t songIndex)
 {
     uint8_t joy = 0;
-//	while(1)
-//	{
-		joy = joystick_read();
-		uint8_t currentSongIndex = songIndex;
+	joy = joystick_read();
+	uint8_t currentSongIndex = songIndex;
 
-		if ((joy & JOYSTICK_CENTER) != 0) {
-	    	playWavFile(songsList[songIndex]);
-//			break;
-		}
+	if ((joy & JOYSTICK_CENTER) != 0) {
+	playWavFile(songsList[songIndex]);
+	}
 
-		else if (((joy & JOYSTICK_DOWN) != 0)) {
-			unselect(currentSongIndex);
-			if(currentSongIndex == songs - 1U) {
-				currentSongIndex = 0;
-			}
-			else {
-				currentSongIndex++;
-			}
-			select(currentSongIndex);
+	else if (((joy & JOYSTICK_DOWN) != 0)) {
+		unselect(currentSongIndex);
+		if(currentSongIndex == songs - 1U) {
+			currentSongIndex = 0;
 		}
+		else {
+			currentSongIndex++;
+		}
+		select(currentSongIndex);
+	}
 
-		else if ((joy & JOYSTICK_UP) != 0) {
-			unselect(currentSongIndex);
-			if(currentSongIndex == 0U) {
-				currentSongIndex = songs - 1U;
-			}
-			else {
-				currentSongIndex--;
-			}
-			select(currentSongIndex);
+	else if ((joy & JOYSTICK_UP) != 0) {
+		unselect(currentSongIndex);
+		if(currentSongIndex == 0U) {
+			currentSongIndex = songs - 1U;
 		}
-		Timer0_Wait(200);
-//	}
+		else {
+			currentSongIndex--;
+		}
+		select(currentSongIndex);
+	}
+	Timer0_Wait(200);
 	return currentSongIndex;
 }
-
-
-
-
-//void selected(uint8_t nameIndex) {
-//	oled_putString(0, nameIndex * 8 + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
-//}
-//
-//void unselected(uint8_t nameIndex) {
-//	oled_putString(0, nameIndex * 8 + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
-//}
 
 void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr) {
     RTC_GetFullTime(LPC_RTC, currentTime);
@@ -458,16 +441,7 @@ int main (void) {
 
     int i = 0;
 
-    int32_t xoff = 0;
-    int32_t yoff = 0;
-    int32_t zoff = 0;
-
-    int8_t x = 0;
-    int8_t y = 0;
-    int8_t z = 0;
-
     int32_t t = 0;
-//    uint32_t lux = 0;
     uint32_t trim = 0;
 
     init_uart();
@@ -478,7 +452,6 @@ int main (void) {
     init_Timer();
     oled_init();
     light_init();
-    acc_init();
     light_init();	/* inicjalizacja czujnika swiatla */
     init_amp();
     rotary_init();
@@ -551,36 +524,28 @@ int main (void) {
     oled_clearScreen(OLED_COLOR_WHITE);
 
     /* odczytuje i wypisuje nazwy plików z katalogu głównego */
-    for(int i = 0; i < 10; i++) {
+    while((songs <= MAX_SONGS) && (i<20)) {
 		res = f_readdir(&dir, &Finfo);
 		if ((Finfo.fname[0] == '_') || (Finfo.fattrib & AM_DIR)) {
-			i--;
+			i++;
 			continue;
 		}
 		if ((res != FR_OK) || !Finfo.fname[0]) break;
-		oled_putString(1,1 + (i * 8), Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+		oled_putString(1,1 + (songs * 8), Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 		uint8_t nameLen = strnlen(Finfo.fname, sizeof(Finfo.fname));
 		strncpy(songsList[songs], Finfo.fname, nameLen+1U);
 		songs++;
-	};
-
-
-    acc_read(&x, &y, &z);
-    xoff = 0-x;
-    yoff = 0-y;
-    zoff = 64-z;
+		i++;
+    }
 
     light_enable();						/* aktywowanie czujnika swiatla */
     light_setRange(LIGHT_RANGE_4000);	/* ustawienie zakresu swiatla do 4000 luksow */
 
 	RTC_GetFullTime(LPC_RTC, &currentTime);
-//
+
 //	sprintf((char*)timeStr, "%02d-%02d-%04d %02d:%02d:%02d", currentTime.DOM, currentTime.MONTH, currentTime.YEAR, currentTime.HOUR, currentTime.MIN, currentTime.SEC);
 //	oled_putString(0, 49, timeStr, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 //	oled_horizontalLeftScroll(0x06, 0x07);		/* 6 i 7 bo to numery segmentow ekranu OLED (kazdy segment to 8 pikseli) */
-//
-
-
 
 	uint8_t songIndex = 0;
 	select(songIndex);
@@ -589,5 +554,4 @@ int main (void) {
     	updateTime(&currentTime, timeStr);
     	songIndex = chooseSong(songIndex);
     };
-
 }

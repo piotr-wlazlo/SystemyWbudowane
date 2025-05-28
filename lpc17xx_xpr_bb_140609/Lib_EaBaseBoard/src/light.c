@@ -156,8 +156,7 @@ void light_init (void)
  *    Enable the ISL29003 Device.
  *
  *****************************************************************************/
-void light_enable (void)
-{
+void light_enable (void) {
     uint8_t buf[2];
     buf[0] = ADDR_CMD;
     buf[1] = CMD_ENABLE;

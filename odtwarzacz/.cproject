@@ -35,7 +35,7 @@
 									<listOptionValue builtIn="false" value="__CODE_RED"/>
 									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.933858156" name="Other flags" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -pedantic" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.933858156" name="Other flags" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -pedantic&#10;" valueType="string"/>
 								<option id="gnu.c.compiler.option.preprocessor.nostdinc.1671974075" name="Do not search system directories (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.preprocessor.preprocess.616779157" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.preprocessor.undef.symbol.1377898486" name="Undefined symbols (-U)" superClass="gnu.c.compiler.option.preprocessor.undef.symbol" useByScannerDiscovery="false"/>
@@ -133,6 +133,12 @@
 							<tool id="com.crt.advproject.tool.debug.debug.1829432841" name="MCU Debugger" superClass="com.crt.advproject.tool.debug.debug"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.crt.advproject.config.exe.debug.2131569113.310594064" name="D03.c" rcbsApplicability="disable" resourcePath="src/D03.c" toolsToInvoke="com.crt.advproject.gcc.exe.debug.2101254841.1025142699">
+						<tool id="com.crt.advproject.gcc.exe.debug.2101254841.1025142699" name="MCU C Compiler" superClass="com.crt.advproject.gcc.exe.debug.2101254841">
+							<option id="gnu.c.compiler.option.misc.other.2067768334" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -pedantic&#10;" valueType="string"/>
+							<inputType id="com.crt.advproject.compiler.input.1153353665" superClass="com.crt.advproject.compiler.input"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>

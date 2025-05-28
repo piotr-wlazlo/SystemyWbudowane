@@ -154,8 +154,8 @@ Discarded input sections
  .data          0x00000000        0x0 ./src/usbdesc.o
  .bss           0x00000000        0x0 ./src/usbdesc.o
  .rodata        0x00000000       0xa8 ./src/usbdesc.o
- .debug_info    0x00000000      0x12b ./src/usbdesc.o
- .debug_abbrev  0x00000000       0x8c ./src/usbdesc.o
+ .debug_info    0x00000000      0x134 ./src/usbdesc.o
+ .debug_abbrev  0x00000000       0x89 ./src/usbdesc.o
  .debug_aranges
                 0x00000000       0x18 ./src/usbdesc.o
  .debug_macro   0x00000000       0x96 ./src/usbdesc.o
@@ -172,7 +172,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xcd ./src/usbdesc.o
  .debug_macro   0x00000000       0x28 ./src/usbdesc.o
  .debug_line    0x00000000      0x359 ./src/usbdesc.o
- .debug_str     0x00000000     0x4ec0 ./src/usbdesc.o
+ .debug_str     0x00000000     0x4eca ./src/usbdesc.o
  .comment       0x00000000       0x45 ./src/usbdesc.o
  .ARM.attributes
                 0x00000000       0x2d ./src/usbdesc.o
@@ -813,27 +813,27 @@ USB_RAM         0x10000000      0x220 load address 0x00002bcc
 OUTPUT(usbmem.axf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000     0x2e83
- .debug_info    0x00000000       0xa5 ./src/DiskImg.o
- .debug_info    0x000000a5      0x1d6 ./src/cr_startup_lpc17.o
- .debug_info    0x0000027b      0x30c ./src/memory.o
- .debug_info    0x00000587      0x443 ./src/mscuser.o
- .debug_info    0x000009ca      0x79e ./src/usbcore.o
- .debug_info    0x00001168     0x13a8 ./src/usbhw.o
- .debug_info    0x00002510      0x35f ./src/usbuser.o
- .debug_info    0x0000286f      0x2ba /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
- .debug_info    0x00002b29      0x35a /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+.debug_info     0x00000000     0x3172
+ .debug_info    0x00000000       0xa4 ./src/DiskImg.o
+ .debug_info    0x000000a4      0x1f7 ./src/cr_startup_lpc17.o
+ .debug_info    0x0000029b      0x335 ./src/memory.o
+ .debug_info    0x000005d0      0x48f ./src/mscuser.o
+ .debug_info    0x00000a5f      0x822 ./src/usbcore.o
+ .debug_info    0x00001281     0x14c7 ./src/usbhw.o
+ .debug_info    0x00002748      0x390 ./src/usbuser.o
+ .debug_info    0x00002ad8      0x2fb /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_info    0x00002dd3      0x39f /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
-.debug_abbrev   0x00000000      0xefc
- .debug_abbrev  0x00000000       0x63 ./src/DiskImg.o
- .debug_abbrev  0x00000063       0xf0 ./src/cr_startup_lpc17.o
- .debug_abbrev  0x00000153      0x160 ./src/memory.o
- .debug_abbrev  0x000002b3      0x217 ./src/mscuser.o
- .debug_abbrev  0x000004ca      0x2ec ./src/usbcore.o
- .debug_abbrev  0x000007b6      0x3c8 ./src/usbhw.o
- .debug_abbrev  0x00000b7e      0x163 ./src/usbuser.o
- .debug_abbrev  0x00000ce1       0xf5 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
- .debug_abbrev  0x00000dd6      0x126 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+.debug_abbrev   0x00000000      0xeb9
+ .debug_abbrev  0x00000000       0x64 ./src/DiskImg.o
+ .debug_abbrev  0x00000064       0xec ./src/cr_startup_lpc17.o
+ .debug_abbrev  0x00000150      0x15d ./src/memory.o
+ .debug_abbrev  0x000002ad      0x20e ./src/mscuser.o
+ .debug_abbrev  0x000004bb      0x2d8 ./src/usbcore.o
+ .debug_abbrev  0x00000793      0x3b1 ./src/usbhw.o
+ .debug_abbrev  0x00000b44      0x162 ./src/usbuser.o
+ .debug_abbrev  0x00000ca6       0xf4 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_abbrev  0x00000d9a      0x11f /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
 .debug_aranges  0x00000000      0x3b8
  .debug_aranges
@@ -905,17 +905,17 @@ LOAD linker stubs
  .debug_line    0x00002ef6      0x430 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
  .debug_line    0x00003326      0x35a /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
-.debug_str      0x00000000     0xc642
- .debug_str     0x00000000     0xc642 ./src/DiskImg.o
-                               0x3fa5 (size before relaxing)
- .debug_str     0x0000c642     0x3ee2 ./src/cr_startup_lpc17.o
- .debug_str     0x0000c642     0x8f19 ./src/memory.o
- .debug_str     0x0000c642     0x92dd ./src/mscuser.o
- .debug_str     0x0000c642     0x5797 ./src/usbcore.o
- .debug_str     0x0000c642     0x9f24 ./src/usbhw.o
- .debug_str     0x0000c642     0x9013 ./src/usbuser.o
- .debug_str     0x0000c642     0x88f8 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
- .debug_str     0x0000c642     0x8788 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+.debug_str      0x00000000     0xc64c
+ .debug_str     0x00000000     0xc64c ./src/DiskImg.o
+                               0x3faf (size before relaxing)
+ .debug_str     0x0000c64c     0x3eec ./src/cr_startup_lpc17.o
+ .debug_str     0x0000c64c     0x8f23 ./src/memory.o
+ .debug_str     0x0000c64c     0x92e7 ./src/mscuser.o
+ .debug_str     0x0000c64c     0x57a1 ./src/usbcore.o
+ .debug_str     0x0000c64c     0x9f2e ./src/usbhw.o
+ .debug_str     0x0000c64c     0x901d ./src/usbuser.o
+ .debug_str     0x0000c64c     0x8902 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_str     0x0000c64c     0x8792 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
 .comment        0x00000000       0x44
  .comment       0x00000000       0x44 ./src/DiskImg.o
@@ -950,24 +950,15 @@ LOAD linker stubs
  .ARM.attributes
                 0x00000168       0x2d /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
-.debug_rnglists
-                0x00000000      0x2a1
- .debug_rnglists
-                0x00000000       0x4f ./src/cr_startup_lpc17.o
- .debug_rnglists
-                0x0000004f       0x19 ./src/memory.o
- .debug_rnglists
-                0x00000068       0x86 ./src/mscuser.o
- .debug_rnglists
-                0x000000ee       0x38 ./src/usbcore.o
- .debug_rnglists
-                0x00000126       0xce ./src/usbhw.o
- .debug_rnglists
-                0x000001f4       0x73 ./src/usbuser.o
- .debug_rnglists
-                0x00000267       0x1b /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
- .debug_rnglists
-                0x00000282       0x1f /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
+.debug_ranges   0x00000000      0x320
+ .debug_ranges  0x00000000       0x60 ./src/cr_startup_lpc17.o
+ .debug_ranges  0x00000060       0x18 ./src/memory.o
+ .debug_ranges  0x00000078       0xa0 ./src/mscuser.o
+ .debug_ranges  0x00000118       0x40 ./src/usbcore.o
+ .debug_ranges  0x00000158      0x100 ./src/usbhw.o
+ .debug_ranges  0x00000258       0x90 ./src/usbuser.o
+ .debug_ranges  0x000002e8       0x18 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_CMSISv1p30_LPC17xx/Debug/libCMSISv1p30_LPC17xx.a(system_LPC17xx.o)
+ .debug_ranges  0x00000300       0x20 /Users/piotrwlazlo/Desktop/studia/4semestr/SystemyWbudowane/lpc17xx_xpr_bb_140609/Lib_MCU/Debug/libLib_MCU.a(lpc17xx_nvic.o)
 
 .debug_frame    0x00000000      0xcc8
  .debug_frame   0x00000000      0x120 ./src/cr_startup_lpc17.o

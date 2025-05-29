@@ -31,9 +31,8 @@
 #define DELAY 1000000 / 8000
 
 #define BUF_SIZE ((uint32_t)4096)
-#define MAX_SONGS 4
+#define MAX_SONGS ((uint8_t)4)
 #define MAX_NAME_LEN 13
-
 
 static uint8_t songs = 0;
 static char songsList[MAX_SONGS][MAX_NAME_LEN];
@@ -41,21 +40,21 @@ static char songsList[MAX_SONGS][MAX_NAME_LEN];
 static uint8_t bufor1[BUF_SIZE];
 static uint8_t bufor2[BUF_SIZE];
 
-volatile bool bufor1_pusty = true;
-volatile bool bufor2_pusty = true;
-volatile int aktualnyBufor = 0;
-volatile uint32_t pozycja = 0;
-
-static uint32_t dataOffset = 0;
-static FIL wavFile;
+static volatile bool bufor1_pusty = true;
+static volatile bool bufor2_pusty = true;
+static volatile int aktualnyBufor = 0;
+static volatile uint32_t pozycja = 0;
 
 static RTC_TIME_Type currentTime;
 static uint8_t timeStr[40];
 
+void TIMER1_IRQHandler(void);
+void SysTick_Handler(void);
+void select(uint8_t nameIndex);
+void unselect(uint8_t nameIndex);
+void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr);
 
 void TIMER1_IRQHandler(void) {
-//    static uint32_t pozycja = 0;
-
     if (TIM_GetIntStatus(LPC_TIM1, TIM_MR0_INT)) {
         if (aktualnyBufor == 0) {
             DAC_UpdateValue(LPC_DAC, bufor1[pozycja]);
@@ -211,9 +210,11 @@ void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
     disk_timerproc();
 }
 
-static uint32_t msTicks = 0;
+
 
 static uint32_t getTicks(void) {
+	uint32_t msTicks = 0;
+
     return msTicks;
 }
 
@@ -237,6 +238,7 @@ static uint8_t parseWavHeader(FIL* file) {
 	UINT bytesRead;
 	uint32_t sampleRate = 0;
 	uint8_t result = 1;
+	uint32_t dataOffset = 0;
 
 	f_read(file, header, 44, &bytesRead);
 
@@ -270,9 +272,9 @@ static uint8_t parseWavHeader(FIL* file) {
     uint32_t offset = 36U;
 
     while (offset < 100U) {
-        if ((header[offset] == (uint8_t)'d') && (header[offset+1] == (uint8_t)'a') &&
-            (header[offset+2] == (uint8_t)'t') && (header[offset+3] == (uint8_t)'a')) {
-            dataOffset = offset + 8;
+        if ((header[offset] == (uint8_t)'d') && (header[offset + 1UL] == (uint8_t)'a') &&
+            (header[offset + 2UL] == (uint8_t)'t') && (header[offset + 3UL] == (uint8_t)'a')) {
+            dataOffset = offset + 8U;
             break;
         }
         offset++;
@@ -299,6 +301,8 @@ static void changeVolume(uint8_t rotaryDir) {
 	else if (rotaryDir == ROTARY_LEFT) {
 		  GPIO_ClearValue(0, 1UL<<28UL); 	// down
 		  valid = true;
+	} else {
+//		gówno
 	}
 
 	if (valid) {
@@ -311,18 +315,18 @@ static void changeVolume(uint8_t rotaryDir) {
 
 
 void select(uint8_t nameIndex) {
-	oled_putString(0, (nameIndex * 8) + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
+	oled_putString(0, (nameIndex * 8u) + 1u, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 }
 
 void unselect(uint8_t nameIndex) {
-	oled_putString(0, (nameIndex * 8) + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+	oled_putString(0, (nameIndex * 8u) + 1u, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 }
 
 static void changeLight(void) {
 	uint32_t lux = 0;
 	lux = light_read(); /* pomiar swiatla */
 
-	if (lux < 100) {
+	if (lux < 100U) {
 		oled_setInvertDisplay();
 	} else {
 		oled_setNormalDisplay();
@@ -332,52 +336,60 @@ static void changeLight(void) {
 static void playWavFile(char* filename) {
 	BYTE res;
 	UINT bytesRead;
+	FIL wavFile;
+	bool continuePlayback = true;
 
     bufor1_pusty = true;
     bufor2_pusty = true;
     aktualnyBufor = 0;
     pozycja = 0;
 
-    memset(bufor1, 0, BUF_SIZE);
-    memset(bufor2, 0, BUF_SIZE);
+    (void)memset(bufor1, 0, BUF_SIZE);
+    (void)memset(bufor2, 0, BUF_SIZE);
 
     res = f_open(&wavFile, filename, FA_READ);
     if (res != FR_OK) {
     	UART_SendString(UART_DEV,(const uint8_t*)"Failed to open file: %s, error: %d\r\n");
-        return;
+
+    	continuePlayback = false;
     }
 
-    if (!parseWavHeader(&wavFile)) {
+    if (continuePlayback && (!parseWavHeader(&wavFile))) {
         UART_SendString(UART_DEV, (const uint8_t*)"Invalid WAV file format\r\n");
         f_close(&wavFile);
-        return;
+
+        continuePlayback = false;
     }
 
-    res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
-    bufor1_pusty = false;
-    __enable_irq();
+    if (continuePlayback) {
+		res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
+		bufor1_pusty = false;
+		__enable_irq();
 
-    while (1) {
-    	changeLight();
-    	updateTime(&currentTime, timeStr);
-    	if (bufor1_pusty) {
-    		res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
-    		bufor1_pusty = false;
-    	}
+		while (continuePlayback) {
+			changeLight();
+			updateTime(&currentTime, timeStr);
 
-    	if (bufor2_pusty) {
-    		res = f_read(&wavFile, bufor2, sizeof(bufor2), &bytesRead);
-    		bufor2_pusty = false;
-    	}
-        if ((res != FR_OK) || (bytesRead == 0) || (bytesRead == wavFile.fsize)) {
-            break;
-        }
+			if (bufor1_pusty) {
+				res = f_read(&wavFile, bufor1, sizeof(bufor1), &bytesRead);
+				bufor1_pusty = false;
+			}
 
-    	changeVolume(rotary_read());
+			if (bufor2_pusty) {
+				res = f_read(&wavFile, bufor2, sizeof(bufor2), &bytesRead);
+				bufor2_pusty = false;
+			}
+
+			if ((res != FR_OK) || (bytesRead == 0U) || (bytesRead == wavFile.fsize)) {
+				break;
+			}
+
+			changeVolume(rotary_read());
+		}
+
+		__disable_irq();
+		f_close(&wavFile);
     }
-
-    __disable_irq();
-    f_close(&wavFile);
 }
 
 static void init_amp(void){
@@ -389,11 +401,12 @@ static void init_amp(void){
 	  GPIO_ClearValue(2, 1UL<<13UL);
 }
 
-static int chooseSong(uint8_t songIndex)
-{
+static int chooseSong(uint8_t songIndex) {
     uint8_t joy = 0;
-	joy = joystick_read();
 	uint8_t currentSongIndex = songIndex;
+	bool temp = false;
+
+	joy = joystick_read();
 
 	if ((joy & JOYSTICK_CENTER) != 0) {
 	playWavFile(songsList[songIndex]);
@@ -401,28 +414,31 @@ static int chooseSong(uint8_t songIndex)
 
 	else if (((joy & JOYSTICK_DOWN) != 0)) {
 		unselect(currentSongIndex);
+
 		if(currentSongIndex == (songs - 1UL)) {
 			currentSongIndex = 0;
-		}
-		else {
+		} else {
 			currentSongIndex++;
 		}
 		select(currentSongIndex);
 	}
 	else if ((joy & JOYSTICK_UP) != 0) {
 		unselect(currentSongIndex);
+
 		if(currentSongIndex == 0UL) {
-			currentSongIndex = songs - 1UL;
-		}
-		else {
+			currentSongIndex = songs - 1u;
+		} else {
 			currentSongIndex--;
 		}
+
 		select(currentSongIndex);
+	} else {
+		temp = true;
 	}
-	else {
-		return currentSongIndex;
+
+	if (!temp) {
+		Timer0_Wait(200);
 	}
-	Timer0_Wait(200);
 
 	return currentSongIndex;
 }
@@ -430,12 +446,17 @@ static int chooseSong(uint8_t songIndex)
 void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr) {
     RTC_GetFullTime(LPC_RTC, currentTime);
 
-    sprintf((char*)timeStr, "%02d:%02d:%02d",
-            currentTime->HOUR,
-            currentTime->MIN,
-            currentTime->SEC);
+    timeStr[0] = (uint8_t)((currentTime->HOUR / 10) + (int)'0');
+    timeStr[1] = (uint8_t)((currentTime->HOUR % 10) + (int)'0');
+    timeStr[2] = ':';
+    timeStr[3] = (uint8_t)((currentTime->MIN / 10) + (int)'0');
+    timeStr[4] = (uint8_t)((currentTime->MIN % 10) + (int)'0');
+    timeStr[5] = ':';
+    timeStr[6] = (uint8_t)((currentTime->SEC / 10) + (int)'0');
+    timeStr[7] = (uint8_t)((currentTime->SEC % 10) + (int)'0');
+    timeStr[8] = '\0';
 
-    oled_putString(0, 49, timeStr, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+    (void)oled_putString(0, 49, timeStr, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 }
 
 int main (void) {
@@ -449,6 +470,8 @@ int main (void) {
     int32_t t = 0;
     uint32_t trim = 0;
 	uint8_t songIndex = 0;
+
+	uint8_t returnCode = 0u;
 
     init_uart();
     init_i2c();
@@ -476,25 +499,25 @@ int main (void) {
     }
 
     if (stat != 0) {
-        return 1;
+    	returnCode = 1u;
     }
 
     res = f_mount(0, &Fatfs[0]);				// montuje system plików FAT
     if (res != FR_OK) {
     	UART_SendString(UART_DEV,(const uint8_t*)"Failed to mount 0: %d \r\n");
-        return 1;
+    	returnCode = 1u;
     }
 
     res = f_opendir(&dir, "/");				    // otwiera katalog główny karty SD
     if (res) {
     	UART_SendString(UART_DEV,(const uint8_t*)"Failed to open /: %d \r\n");
-        return 1;
+    	returnCode = 1u;
     }
 
     oled_clearScreen(OLED_COLOR_WHITE);
 
     // odczytuje i wypisuje nazwy plików z katalogu głównego
-    while((songs <= MAX_SONGS) && (i < 20)) {
+    while((songs <= MAX_SONGS) && (i < 20u)) {
 		res = f_readdir(&dir, &Finfo);
 		if ((Finfo.fname[0] == '_') || (Finfo.fattrib & AM_DIR)) {
 			i++;
@@ -503,9 +526,9 @@ int main (void) {
 		if ((res != FR_OK) || !Finfo.fname[0]) {
 			break;
 		}
-		oled_putString(1,1 + (songs * 8), Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+		oled_putString(1, 1u + (songs * 8u), Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 		uint8_t nameLen = strnlen(Finfo.fname, sizeof(Finfo.fname));
-		strncpy(songsList[songs], Finfo.fname, nameLen+1UL);
+		(void)strncpy(songsList[songs], Finfo.fname, nameLen+1UL);
 		songs++;
 		i++;
     }
@@ -515,8 +538,7 @@ int main (void) {
 
 	RTC_GetFullTime(LPC_RTC, &currentTime);
 
-	uint8_t szlaczek[20];
-	sprintf((char*)szlaczek, "----------------");
+	static const uint8_t szlaczek[] = "----------------";
 	oled_putString(0, 41, szlaczek, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	oled_scroll(0x05, 0x05);
 
@@ -527,4 +549,6 @@ int main (void) {
     	updateTime(&currentTime, timeStr);
     	songIndex = chooseSong(songIndex);
     };
+
+    return returnCode;
 }

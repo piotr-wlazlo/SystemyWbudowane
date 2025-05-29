@@ -839,21 +839,23 @@ void oled_putString(uint8_t x, uint8_t y, uint8_t *pStr, oled_color_t fb,
   return;
 }
 
-void oled_horizontalLeftScroll(uint8_t startPage, uint8_t endPage) {
+void oled_scroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x2e);
 
-	writeCommand(0x27); //w teorii kierunke scrolla
-	writeCommand(0x01);
+	writeCommand(0xa3);
+	writeCommand(0x21);
+	writeCommand(0x0f);
+
+	writeCommand(0x29);
+	writeCommand(0x00);
 
 	writeCommand(startPage); //startpage
 
-	writeCommand(0x00);
+	writeCommand(0x03);
 
 	writeCommand(endPage); //endpage
 
-	writeCommand(0x00);
-	writeCommand(0xff);
-
+	writeCommand(0x03);
 	writeCommand(0x2f);
 };
 

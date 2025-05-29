@@ -31,29 +31,30 @@
 #define DELAY 1000000 / 8000
 
 #define BUF_SIZE ((uint32_t)4096)
-#define MAX_SONGS 5
+#define MAX_SONGS 4
 #define MAX_NAME_LEN 13
 
 
 static uint8_t songs = 0;
 static char songsList[MAX_SONGS][MAX_NAME_LEN];
 
-uint8_t bufor1[BUF_SIZE];			// bufory do wav
-uint8_t bufor2[BUF_SIZE];
+static uint8_t bufor1[BUF_SIZE];
+static uint8_t bufor2[BUF_SIZE];
 
 volatile bool bufor1_pusty = true;
 volatile bool bufor2_pusty = true;
 volatile int aktualnyBufor = 0;
+volatile uint32_t pozycja = 0;
 
-uint32_t dataOffset = 0;
-FIL wavFile;
+static uint32_t dataOffset = 0;
+static FIL wavFile;
 
-RTC_TIME_Type currentTime;
-uint8_t timeStr[40];
+static RTC_TIME_Type currentTime;
+static uint8_t timeStr[40];
 
 
 void TIMER1_IRQHandler(void) {
-    static uint32_t pozycja = 0;
+//    static uint32_t pozycja = 0;
 
     if (TIM_GetIntStatus(LPC_TIM1, TIM_MR0_INT)) {
         if (aktualnyBufor == 0) {
@@ -235,32 +236,38 @@ static uint8_t parseWavHeader(FIL* file) {
 	uint8_t header[44];
 	UINT bytesRead;
 	uint32_t sampleRate = 0;
+	uint8_t result = 1;
 
 	f_read(file, header, 44, &bytesRead);
 
 	if (bytesRead != 44) {
 	    UART_SendString(UART_DEV, (const uint8_t*)"Failed to open\r\n");
+	    result = 0;
 	}
 
 	if ((header[0] != (uint8_t)'R') || (header[1] != (uint8_t)'I') || (header[2] != (uint8_t)'F') || (header[3] != (uint8_t)'F')) {
         UART_SendString(UART_DEV, (const uint8_t*)"Wrong format\r\n");
+        result = 0;
 	}
 
 	if ((header[8] != (uint8_t)'W') || (header[9] != (uint8_t)'A') || (header[10] != (uint8_t)'V') || (header[11] != (uint8_t)'E')) {
 		UART_SendString(UART_DEV, (const uint8_t*)"File is not .wav\r\n");
+		result = 0;
 	}
 
     if ((header[12] != (uint8_t)'f') || (header[13] != (uint8_t)'m') || (header[14] !=(uint8_t) 't') || (header[15] != (uint8_t)' ')) {
         UART_SendString(UART_DEV, (const uint8_t*)"Missing fmt\r\n");
+        result = 0;
     }
 
     sampleRate = (header[24] | (header[25] << 8) | (header[26] << 16) | (header[27] << 24));
 
     if (sampleRate != (uint32_t)SAMPLE_RATE) {
         UART_SendString(UART_DEV, (const uint8_t*)"File not in 8kHz\r\n");
+        result = 0;
     }
 
-    uint32_t offset = 36;
+    uint32_t offset = 36U;
 
     while (offset < 100U) {
         if ((header[offset] == (uint8_t)'d') && (header[offset+1] == (uint8_t)'a') &&
@@ -273,30 +280,35 @@ static uint8_t parseWavHeader(FIL* file) {
 
     if (offset >= 100UL) {
         UART_SendString(UART_DEV, (const uint8_t*)"Missing data chunk\r\n");
-        return 0;
+        result = 0;
     }
 
     f_lseek(file, dataOffset);
 
-    return 1;
+    return result;
 }
 
-static void changeVolume(uint8_t rotaryDir)
-{ /* początkowo clock=0 i UP=1*/
+static void changeVolume(uint8_t rotaryDir) {
+	bool valid = false;
+
+	/* początkowo clock=0 i UP=1*/
 	if (rotaryDir == ROTARY_RIGHT) {
 		  GPIO_SetValue(0, 1UL<<28UL); 		// up
+		  valid = true;
 	}
 	else if (rotaryDir == ROTARY_LEFT) {
 		  GPIO_ClearValue(0, 1UL<<28UL); 	// down
-	} else {
-		return;
+		  valid = true;
 	}
 
-	GPIO_SetValue(0, 1UL<<27UL);
-	Timer0_us_Wait(100);
-	GPIO_ClearValue(0, 1UL<<27UL);
-	GPIO_SetValue(0, 1UL<<28UL); // up
+	if (valid) {
+		GPIO_SetValue(0, 1UL<<27UL);
+		Timer0_us_Wait(100);
+		GPIO_ClearValue(0, 1UL<<27UL);
+		GPIO_SetValue(0, 1UL<<28UL); // up
+	}
 }
+
 
 void select(uint8_t nameIndex) {
 	oled_putString(0, (nameIndex * 8) + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
@@ -306,7 +318,7 @@ void unselect(uint8_t nameIndex) {
 	oled_putString(0, (nameIndex * 8) + 1, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 }
 
-static void changeLight() {
+static void changeLight(void) {
 	uint32_t lux = 0;
 	lux = light_read(); /* pomiar swiatla */
 
@@ -320,6 +332,14 @@ static void changeLight() {
 static void playWavFile(char* filename) {
 	BYTE res;
 	UINT bytesRead;
+
+    bufor1_pusty = true;
+    bufor2_pusty = true;
+    aktualnyBufor = 0;
+    pozycja = 0;
+
+    memset(bufor1, 0, BUF_SIZE);
+    memset(bufor2, 0, BUF_SIZE);
 
     res = f_open(&wavFile, filename, FA_READ);
     if (res != FR_OK) {
@@ -495,10 +515,10 @@ int main (void) {
 
 	RTC_GetFullTime(LPC_RTC, &currentTime);
 
-//	uint8_t szlaczek[20];
-//	sprintf((char*)szlaczek, "**********");
-//	oled_putString(0, 41, szlaczek, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
-//	oled_horizontalLeftScroll(0x05, 0x05);
+	uint8_t szlaczek[20];
+	sprintf((char*)szlaczek, "----------------");
+	oled_putString(0, 41, szlaczek, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+	oled_scroll(0x05, 0x05);
 
 
 	select(songIndex);

@@ -839,6 +839,7 @@ void oled_putString(uint8_t x, uint8_t y, uint8_t *pStr, oled_color_t fb,
   return;
 }
 
+/* w teorii funkcja moze byc bezparametrowa?????? */
 void oled_scroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x2e);
 
@@ -847,15 +848,17 @@ void oled_scroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x0f);
 
 	writeCommand(0x29);
-	writeCommand(0x00);
+	writeCommand(0x00); //brak poziomego przewijania
 
-	writeCommand(startPage); //startpage
+//	writeCommand(startPage); //startpage
+	writeCommand(0x00); // dummy byte
 
-	writeCommand(0x03);
+	writeCommand(0x04);
 
-	writeCommand(endPage); //endpage
+//	writeCommand(endPage); //endpage
+	writeCommand(0x00); // dummy byte
 
-	writeCommand(0x03);
+	writeCommand(0x01);
 	writeCommand(0x2f);
 };
 

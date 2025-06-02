@@ -46,7 +46,7 @@ static volatile int aktualnyBufor = 0;
 static volatile uint32_t pozycja = 0;
 
 static RTC_TIME_Type currentTime;
-static uint8_t timeStr[40];
+static uint8_t timeStr[9];
 
 void TIMER1_IRQHandler(void);
 void SysTick_Handler(void);

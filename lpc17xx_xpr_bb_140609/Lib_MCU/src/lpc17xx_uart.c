@@ -1377,9 +1377,9 @@ uint32_t UART_RS485SendData(LPC_UART1_TypeDef *UARTx, uint8_t *pData, uint32_t s
  * Note: when using UART in BLOCKING mode, a time-out condition is used
  * via defined symbol UART_BLOCKING_TIMEOUT.
  **********************************************************************/
-uint32_t UART_SendString(LPC_UART_TypeDef *UARTx, uint8_t *str)
+uint32_t UART_SendString(LPC_UART_TypeDef *UARTx, const char *msg)
 {
-	return UART_Send(UARTx, str, strlen(str), BLOCKING);
+	return UART_Send(UARTx, msg, strlen(msg), BLOCKING);
 }
 
 #endif /* _UART */

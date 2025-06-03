@@ -1,0 +1,8 @@
+Archive member included to satisfy reference by file (symbol)
+
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-memset.o)
+                              ./src/D03.o (memset)
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-strncpy.o)
+                              ./src/D03.o (strncpy)
+/Applications/MCUXpressoIDE_24.12.148/ide/plugins/com.nxp.mcuxpresso.tools.macosx_24.12.0.202407110909/tools/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-strnlen.o)
+                              ./src/D03.o (strnlen)

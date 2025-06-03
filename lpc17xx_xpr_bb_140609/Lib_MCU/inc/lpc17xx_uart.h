@@ -592,7 +592,7 @@ uint32_t UART_Send(LPC_UART_TypeDef *UARTx, uint8_t *txbuf,
 		uint32_t buflen, TRANSFER_BLOCK_Type flag);
 uint32_t UART_Receive(LPC_UART_TypeDef *UARTx, uint8_t *rxbuf, \
 		uint32_t buflen, TRANSFER_BLOCK_Type flag);
-uint32_t UART_SendString(LPC_UART_TypeDef *UARTx, uint8_t *str);
+uint32_t UART_SendString(LPC_UART_TypeDef *UARTx, const char *msg);
 
 /* UART FIFO functions ----------------------------------------------------------*/
 void UART_FIFOConfig(LPC_UART_TypeDef *UARTx, UART_FIFO_CFG_Type *FIFOCfg);

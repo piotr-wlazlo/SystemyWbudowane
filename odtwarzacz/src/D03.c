@@ -19,12 +19,15 @@
 #include "lpc17xx_clkpwr.h"
 #include "stdbool.h"
 #include "joystick.h"
+#include "lpc17xx_i2c.h"
+
 
 #include "diskio.h"					// obsługa systemu plików FAT i nośnika SD
 #include "ff.h"
 #include "oled.h"
 #include "light.h"
 #include "rotary.h"
+#include "string.h"
 
 #define UART_DEV LPC_UART3			// def UART3 jako domyślne urządzenie do komunikacji szeregowej
 #define SAMPLE_RATE 8000
@@ -195,15 +198,6 @@ static void init_dac (void) {
 	 * First value to AOUT is 0
 	 */
 	DAC_Init(LPC_DAC);
-
-	// Inicjalizacja GPIO dla kontroli wzmacniacza audio LM4811
-	GPIO_SetDir(0, 1UL<<27UL, 1UL); 	// LM4811-clk
-	GPIO_SetDir(0, 1UL<<28UL, 1UL); 	// LM4811-up/dn
-	GPIO_SetDir(2, 1UL<<1UL, 1UL); 	// LM4811-shutdn
-
-	GPIO_ClearValue(0, 1UL<<27UL); 	// LM4811-clk
-	GPIO_ClearValue(0, 1UL<<28UL); 	// LM4811-up/dn
-	GPIO_ClearValue(2, 1UL<<13UL); 	// LM4811-shutdn
 }
 
 void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
@@ -212,11 +206,11 @@ void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
 
 
 
-static uint32_t getTicks(void) {
-	uint32_t msTicks = 0;
-
-    return msTicks;
-}
+//static uint32_t getTicks(void) {
+//	uint32_t msTicks = 0;
+//
+//    return msTicks;
+//}
 
 static void init_i2c(void) {
 	PINSEL_CFG_Type PinCfg;
@@ -243,29 +237,34 @@ static uint8_t parseWavHeader(FIL* file) {
 	f_read(file, header, 44, &bytesRead);
 
 	if (bytesRead != 44) {
-	    UART_SendString(UART_DEV, (const uint8_t*)"Failed to open\r\n");
+		const char *msg = "Failed to open\r\n";
+	    UART_SendString(UART_DEV, msg);
 	    result = 0;
 	}
 
 	if ((header[0] != (uint8_t)'R') || (header[1] != (uint8_t)'I') || (header[2] != (uint8_t)'F') || (header[3] != (uint8_t)'F')) {
-        UART_SendString(UART_DEV, (const uint8_t*)"Wrong format\r\n");
+		const char *msg = "Wrong format\r\n";
+        UART_SendString(UART_DEV, msg);
         result = 0;
 	}
 
 	if ((header[8] != (uint8_t)'W') || (header[9] != (uint8_t)'A') || (header[10] != (uint8_t)'V') || (header[11] != (uint8_t)'E')) {
-		UART_SendString(UART_DEV, (const uint8_t*)"File is not .wav\r\n");
+		const char *msg = "File is not .wav\r\n";
+		UART_SendString(UART_DEV, msg);
 		result = 0;
 	}
 
     if ((header[12] != (uint8_t)'f') || (header[13] != (uint8_t)'m') || (header[14] !=(uint8_t) 't') || (header[15] != (uint8_t)' ')) {
-        UART_SendString(UART_DEV, (const uint8_t*)"Missing fmt\r\n");
+    	const char *msg = "Missing fmt\r\n";
+        UART_SendString(UART_DEV, msg);
         result = 0;
     }
 
     sampleRate = (header[24] | (header[25] << 8) | (header[26] << 16) | (header[27] << 24));
 
     if (sampleRate != (uint32_t)SAMPLE_RATE) {
-        UART_SendString(UART_DEV, (const uint8_t*)"File not in 8kHz\r\n");
+    	const char *msg = "File not in 8kHz\r\n";
+        UART_SendString(UART_DEV, msg);
         result = 0;
     }
 
@@ -281,7 +280,8 @@ static uint8_t parseWavHeader(FIL* file) {
     }
 
     if (offset >= 100UL) {
-        UART_SendString(UART_DEV, (const uint8_t*)"Missing data chunk\r\n");
+    	const char *msg = "Missing data chunk\r\n";
+        UART_SendString(UART_DEV, msg);
         result = 0;
     }
 
@@ -326,8 +326,8 @@ static void changeLight(void) {
 	uint32_t lux = 0;
 	lux = light_read(); /* pomiar swiatla */
 
-	if (lux < 100U) {
-		oled_setInvertDisplay();
+	if (lux < 200U) {
+		oled_setInvertedDisplay();
 	} else {
 		oled_setNormalDisplay();
 	}
@@ -349,13 +349,15 @@ static void playWavFile(char* filename) {
 
     res = f_open(&wavFile, filename, FA_READ);
     if (res != FR_OK) {
-    	UART_SendString(UART_DEV,(const uint8_t*)"Failed to open file: %s, error: %d\r\n");
+    	const char *msg = "Failed to open file: %s, error: %d\r\n";
+    	UART_SendString(UART_DEV, msg);
 
     	continuePlayback = false;
     }
 
     if (continuePlayback && (!parseWavHeader(&wavFile))) {
-        UART_SendString(UART_DEV, (const uint8_t*)"Invalid WAV file format\r\n");
+    	const char *msg = "Invalid WAV file format\r\n";
+        UART_SendString(UART_DEV, msg);
         f_close(&wavFile);
 
         continuePlayback = false;
@@ -443,6 +445,17 @@ static int chooseSong(uint8_t songIndex) {
 	return currentSongIndex;
 }
 
+/**
+ * @brief Aktualizuje tekstowy zapis bieżącego czasu i wyświetla go na ekranie OLED.
+ *
+ * Funkcja pobiera bieżący czas z modułu RTC, konwertuje go do postaci tekstowej
+ * w formacie HH:MM:SS i wyświetla go na ekranie OLED na współrzędnych (0, 49).
+ *
+ * @param[in,out] currentTime Wskaźnik na strukturę RTC_TIME_Type, do której zostanie
+ *                            zapisany aktualny czas z RTC.
+ * @param[out]    timeStr     Wskaźnik na bufor typu uint8_t o długości co najmniej 9 bajtów,
+ *                            w którym zostanie zapisany sformatowany czas jako łańcuch znaków zakończony '\0'.
+ */
 void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr) {
     RTC_GetFullTime(LPC_RTC, currentTime);
 
@@ -467,8 +480,6 @@ int main (void) {
     FATFS Fatfs[1];
 
     uint8_t i = 0;
-    int32_t t = 0;
-    uint32_t trim = 0;
 	uint8_t songIndex = 0;
 
 	uint8_t returnCode = 0u;
@@ -491,11 +502,13 @@ int main (void) {
     stat = disk_initialize(0);					// inicjalizacja karty SD
 
     if (stat & STA_NOINIT) {
-    	UART_SendString(UART_DEV,(const uint8_t*)"SD: not initialized\r\n");
+    	const char *msg = "SD: not initialized\r\n";
+    	UART_SendString(UART_DEV, msg);
     }
 
     if (stat & STA_NODISK) {
-    	UART_SendString(UART_DEV,(const uint8_t*)"SD: No Disk\r\n");
+    	const char *msg = "SD: No Disk\r\n";
+    	UART_SendString(UART_DEV, msg);
     }
 
     if (stat != 0) {
@@ -504,13 +517,15 @@ int main (void) {
 
     res = f_mount(0, &Fatfs[0]);				// montuje system plików FAT
     if (res != FR_OK) {
-    	UART_SendString(UART_DEV,(const uint8_t*)"Failed to mount 0: %d \r\n");
+    	const char *msg = "Failed to mount 0: %d \r\n";
+    	UART_SendString(UART_DEV, msg);
     	returnCode = 1u;
     }
 
     res = f_opendir(&dir, "/");				    // otwiera katalog główny karty SD
     if (res) {
-    	UART_SendString(UART_DEV,(const uint8_t*)"Failed to open /: %d \r\n");
+    	const char *msg = "Failed to open /: %d \r\n";
+    	UART_SendString(UART_DEV, msg);
     	returnCode = 1u;
     }
 
@@ -526,7 +541,7 @@ int main (void) {
 		if ((res != FR_OK) || !Finfo.fname[0]) {
 			break;
 		}
-		oled_putString(1, 1u + (songs * 8u), Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
+		oled_putString(1, 1u + (songs * 8u), (uint8_t*)Finfo.fname, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 		uint8_t nameLen = strnlen(Finfo.fname, sizeof(Finfo.fname));
 		(void)strncpy(songsList[songs], Finfo.fname, nameLen+1UL);
 		songs++;
@@ -538,7 +553,7 @@ int main (void) {
 
 	RTC_GetFullTime(LPC_RTC, &currentTime);
 
-	static const uint8_t szlaczek[] = "----------------";
+	static uint8_t szlaczek[] = { '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '=', '\0' };
 	oled_putString(0, 41, szlaczek, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 	oled_scroll(0x05, 0x05);
 

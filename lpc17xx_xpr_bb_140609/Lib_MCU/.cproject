@@ -80,6 +80,12 @@
 							<tool id="com.crt.advproject.ar.lib.debug.1623266670" name="MCU Archiver" superClass="com.crt.advproject.ar.lib.debug"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.crt.advproject.config.lib.debug.476180645.219620393" name="lpc17xx_timer.c" rcbsApplicability="disable" resourcePath="src/lpc17xx_timer.c" toolsToInvoke="com.crt.advproject.gcc.lib.debug.1253795442.396150222">
+						<tool id="com.crt.advproject.gcc.lib.debug.1253795442.396150222" name="MCU C Compiler" superClass="com.crt.advproject.gcc.lib.debug.1253795442">
+							<option id="gnu.c.compiler.option.misc.other.1074355869" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -pedantic" valueType="string"/>
+							<inputType id="com.crt.advproject.compiler.input.162851666" superClass="com.crt.advproject.compiler.input"/>
+						</tool>
+					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>

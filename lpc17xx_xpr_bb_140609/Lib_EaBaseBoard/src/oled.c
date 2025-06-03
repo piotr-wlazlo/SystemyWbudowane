@@ -850,19 +850,17 @@ void oled_scroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x29);
 	writeCommand(0x00); //brak poziomego przewijania
 
-//	writeCommand(startPage); //startpage
 	writeCommand(0x00); // dummy byte
 
 	writeCommand(0x04);
 
-//	writeCommand(endPage); //endpage
 	writeCommand(0x00); // dummy byte
 
 	writeCommand(0x01);
 	writeCommand(0x2f);
 };
 
-void oled_setInvertDisplay() {
+void oled_setInvertedDisplay() {
 	writeCommand(0xa7);
 }
 

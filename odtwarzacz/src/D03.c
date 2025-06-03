@@ -57,6 +57,12 @@ void select(uint8_t nameIndex);
 void unselect(uint8_t nameIndex);
 void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr);
 
+/*
+ *  @brief:    			Obsługa przerwania timera – przesyła próbkę do DAC i zarządza buforami.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Aktualizuje wartość DAC, przełącza bufory, modyfikuje flagi buforów.
+ */
 void TIMER1_IRQHandler(void) {
     if (TIM_GetIntStatus(LPC_TIM1, TIM_MR0_INT)) {
         if (aktualnyBufor == 0) {
@@ -80,13 +86,19 @@ void TIMER1_IRQHandler(void) {
     }
 }
 
+/*
+ * @brief: 			Inicjalizacja Timera T1
+ * @return: 		brak
+ * @side effects: 	brak
+ * @description: 	Inicjalizacja  zegara T1 w taki sposób, żeby generował przerwania co 125 mikrosekund.
+ */
 static void init_Timer (void)
 {
   TIM_TIMERCFG_Type Config;
   TIM_MATCHCFG_Type Match_Cfg;
 
   Config.PrescaleOption = TIM_PRESCALE_USVAL;
-  Config.PrescaleValue = 1; 				// czyli 1 mikrosek
+  Config.PrescaleValue = 1; 				// czyli 1 mikrosekund
 
   //najpierw włączyć zasilanie
   CLKPWR_SetPCLKDiv (CLKPWR_PCLKSEL_TIMER1, CLKPWR_PCLKSEL_CCLK_DIV_4);
@@ -99,13 +111,19 @@ static void init_Timer (void)
   Match_Cfg.ResetOnMatch = TRUE;
   Match_Cfg.StopOnMatch = FALSE;
   Match_Cfg.MatchChannel = 0;
-  Match_Cfg.MatchValue = 125; 				// Czyli 125  us.
+  Match_Cfg.MatchValue = 125; 				// Czyli 125 mikrosekund
   TIM_ConfigMatch (LPC_TIM1, &Match_Cfg);
   TIM_Cmd (LPC_TIM1, ENABLE);
   // I odblokować przerwania w VIC
   NVIC_EnableIRQ (TIMER1_IRQn);
 }
 
+/*
+ *  @brief:    			Inicjalizuje zegar RTC i ustawia czas początkowy.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Włącza i ustawia RTC.
+ */
 static void init_rtc(void)
 {
     RTC_Init(LPC_RTC);
@@ -125,6 +143,12 @@ static void init_rtc(void)
     RTC_SetFullTime(LPC_RTC, &RTCTime);
 }
 
+/*
+ *  @brief:    			Inicjalizuje interfejs UART3 do komunikacji szeregowej.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Konfiguruje piny i ustawia parametry transmisji.
+ */
 static void init_uart(void)
 {
 	PINSEL_CFG_Type PinCfg;
@@ -147,6 +171,12 @@ static void init_uart(void)
 	UART_TxCmd(UART_DEV, ENABLE);			// włącza transmisję
 }
 
+/*
+ *  @brief:    			Inicjalizuje interfejs SPI (SSP1) do komunikacji z kartą SD i OLEDem.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Ustawia piny SPI i włącza SSP1.
+ */
 static void init_ssp(void)
 {
 	SSP_CFG_Type SSP_ConfigStruct;			// deklaracja struktury konfiguracyjej dla SPI
@@ -179,6 +209,12 @@ static void init_ssp(void)
 	SSP_Cmd(LPC_SSP1, ENABLE);						// Enable SSP peripheral
 }
 
+/*
+ *  @brief:    			Inicjalizuje przetwornik cyfrowo-analogowy DAC.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Konfiguruje pin i uruchamia DAC.
+ */
 static void init_dac (void) {
    PINSEL_CFG_Type PinCfg;
 
@@ -200,18 +236,22 @@ static void init_dac (void) {
 	DAC_Init(LPC_DAC);
 }
 
-void SysTick_Handler(void) {		/* obsługa przerwania SysTick */
+/*
+ *  @brief:    			Obsługa przerwania systemowego SysTick.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Wywołuje funkcję obsługi systemu plików.
+ */
+void SysTick_Handler(void) {
     disk_timerproc();
 }
 
-
-
-//static uint32_t getTicks(void) {
-//	uint32_t msTicks = 0;
-//
-//    return msTicks;
-//}
-
+/*
+ *  @brief:    			Inicjalizuje magistralę I2C2 do komunikacji z czujnikiem światła.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Konfiguruje piny i uruchamia I2C2.
+ */
 static void init_i2c(void) {
 	PINSEL_CFG_Type PinCfg;
 
@@ -227,6 +267,12 @@ static void init_i2c(void) {
 	I2C_Cmd(LPC_I2C2, ENABLE);		// Enable I2C1 operation
 }
 
+/*
+ *  @brief:    		Sprawdza poprawność nagłówka pliku WAV i ustawia wskaźnik pliku na dane audio.
+ *  @param:    		file  wskaźnik do uchwytu pliku WAV
+ *  @returns:  		1 jeśli plik jest poprawny, 0 w przeciwnym razie
+ *  @side effects:	Wysyła komunikaty UART w przypadku błędów, ustawia wskaźnik pliku na początek danych.
+ */
 static uint8_t parseWavHeader(FIL* file) {
 	uint8_t header[44];
 	UINT bytesRead;
@@ -290,6 +336,12 @@ static uint8_t parseWavHeader(FIL* file) {
     return result;
 }
 
+/*
+ *  @brief:    			Zmienia głośność w zależności od kierunku obrotu enkodera.
+ *  @param:    			rotaryDir  kierunek obrotu (ROTARY_LEFT / ROTARY_RIGHT)
+ *  @returns:  			brak
+ *  @side effects:		Steruje pinami GPIO odpowiedzialnymi za zmianę głośności.
+ */
 static void changeVolume(uint8_t rotaryDir) {
 	bool valid = false;
 
@@ -302,7 +354,7 @@ static void changeVolume(uint8_t rotaryDir) {
 		  GPIO_ClearValue(0, 1UL<<28UL); 	// down
 		  valid = true;
 	} else {
-//		gówno
+
 	}
 
 	if (valid) {
@@ -313,15 +365,32 @@ static void changeVolume(uint8_t rotaryDir) {
 	}
 }
 
-
+/*
+ *  @brief:    			Podświetla wybraną pozycję (piosenkę) na wyświetlaczu OLED.
+ *  @param:    			nameIndex  indeks piosenki
+ *  @returns:  			brak
+ *  @side effects:		Zmienia kolory wybranej pozycji na OLED.
+ */
 void select(uint8_t nameIndex) {
 	oled_putString(0, (nameIndex * 8u) + 1u, (uint8_t*) songsList[nameIndex], OLED_COLOR_WHITE, OLED_COLOR_BLACK);
 }
 
+/*
+ *  @brief:    			Usuwa podświetlenie z wybranej pozycji na wyświetlaczu OLED.
+ *  @param:    			nameIndex  indeks piosenki
+ *  @returns:  			brak
+ *  @side effects:		Przywraca standardowy kolor tła wybranej pozycji.
+ */
 void unselect(uint8_t nameIndex) {
 	oled_putString(0, (nameIndex * 8u) + 1u, (uint8_t*) songsList[nameIndex], OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 }
 
+/*
+ *  @brief:    			Dostosowuje tryb wyświetlacza OLED w zależności od natężenia światła.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Przełącza OLED między trybem normalnym i odwróconym.
+ */
 static void changeLight(void) {
 	uint32_t lux = 0;
 	lux = light_read(); /* pomiar swiatla */
@@ -333,6 +402,12 @@ static void changeLight(void) {
 	}
 }
 
+/*
+ *  @brief:    			Odtwarza plik WAV o zadanej nazwie.
+ *  @param:    			filename  wskaźnik do nazwy pliku WAV
+ *  @returns:  			brak
+ *  @side effects:		Otwiera, odczytuje i przetwarza plik WAV. Steruje DAC, obsługuje buforowanie i odświeżanie ekranu.
+ */
 static void playWavFile(char* filename) {
 	BYTE res;
 	UINT bytesRead;
@@ -394,6 +469,12 @@ static void playWavFile(char* filename) {
     }
 }
 
+/*
+ *  @brief:    			Inicjalizuje piny i włącza wzmacniacz audio.
+ *  @param:    			brak
+ *  @returns:  			brak
+ *  @side effects:		Ustawia piny GPIO odpowiedzialne za sterowanie wzmacniaczem.
+ */
 static void init_amp(void){
 	  GPIO_SetDir(0, 1UL<<27UL, 1UL); 	// clock
 	  GPIO_SetDir(0, 1UL<<28UL, 1UL); 	// up/down
@@ -403,6 +484,12 @@ static void init_amp(void){
 	  GPIO_ClearValue(2, 1UL<<13UL);
 }
 
+/*
+ *  @brief:    			Pozwala użytkownikowi wybrać i odtworzyć piosenkę za pomocą joysticka.
+ *  @param:    			songIndex  bieżący indeks wybranej piosenki
+ *  @returns:  			nowy indeks piosenki po ewentualnej zmianie
+ *  @side effects:		Obsługuje joystick, aktualizuje wyświetlacz OLED, może uruchomić odtwarzanie pliku.
+ */
 static int chooseSong(uint8_t songIndex) {
     uint8_t joy = 0;
 	uint8_t currentSongIndex = songIndex;
@@ -472,6 +559,23 @@ void updateTime(RTC_TIME_Type *currentTime, uint8_t *timeStr) {
     (void)oled_putString(0, 49, timeStr, OLED_COLOR_BLACK, OLED_COLOR_WHITE);
 }
 
+/*!
+ *  @brief    Główna procedura programu odtwarzacza plików WAV.
+ *
+ *  Inicjalizuje wszystkie niezbędne moduły (UART, DAC, Timer, RTC, I2C, SSP, wzmacniacz),
+ *  wczytuje listę utworów, wyświetla ją na OLED, oraz zarządza wyborem i odtwarzaniem
+ *  utworów za pomocą joysticka i enkodera.
+ *
+ *  @param    brak
+ *
+ *  @returns  int
+ *            Zwraca 0 po zakończeniu działania programu (zwykle program działa w pętli nieskończonej).
+ *
+ *  @side effects:
+ *            - Konfiguruje sprzętowe przerwania i steruje urządzeniami peryferyjnymi.
+ *            - Steruje wyświetlaczem OLED.
+ *            - Obsługuje odczyt z karty SD i odtwarzanie dźwięku.
+ */
 int main (void) {
     DSTATUS stat;		// zmienne do obsługi systemu plików FAT
     BYTE res;

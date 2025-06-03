@@ -839,7 +839,19 @@ void oled_putString(uint8_t x, uint8_t y, uint8_t *pStr, oled_color_t fb,
   return;
 }
 
-/* w teorii funkcja moze byc bezparametrowa?????? */
+/*!
+ *  @brief    Aktywuje przewijanie ekranu OLED między podanymi stronami.
+ *
+ *  @param startPage
+ *             Numer strony, od której zaczyna się przewijanie (0-7).
+ *  @param endPage
+ *             Numer strony, na której kończy się przewijanie (0-7).
+ *
+ *  @returns  void
+ *  @side effects:
+ *            Rozpoczyna poziome przewijanie wyświetlacza OLED w zadanym zakresie stron.
+ *            Może wyłączyć i ponownie włączyć tryb przewijania.
+ */
 void oled_scroll(uint8_t startPage, uint8_t endPage) {
 	writeCommand(0x2e);
 
